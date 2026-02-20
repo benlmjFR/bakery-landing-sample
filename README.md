@@ -7,7 +7,7 @@ Stack : **Next.js 14 · React 18 · TypeScript · Framer Motion · Lucide · CSS
 ## 📁 Structure du projet
 
 ```
-pepite-boulangerie/
+boulangerie-app/
 ├── app/
 │   ├── layout.tsx          ← Metadata SEO + JSON-LD Local Business
 │   ├── page.tsx            ← Assemblage des sections
@@ -44,8 +44,8 @@ pepite-boulangerie/
 ### 1. Initialiser le repo Git
 
 ```bash
-git init pepite-boulangerie
-cd pepite-boulangerie
+git init boulangerie-app
+cd boulangerie-app
 ```
 
 ### 2. Copier tous les fichiers dans le dossier, puis :
@@ -67,7 +67,7 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=votre.email@gmail.com
 SMTP_PASS=xxxx xxxx xxxx xxxx   # Mot de passe d'application Gmail
-CONTACT_TO=pepiteboulangerie@gmail.com
+CONTACT_TO=boulangerie@gmail.com
 ```
 
 > **Gmail** : Activez la validation en 2 étapes puis allez dans

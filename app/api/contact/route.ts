@@ -28,12 +28,12 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"X Boulangerie Site" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_TO || "pepiteboulangerie@gmail.com",
+      to: process.env.CONTACT_TO || "boulangerie@gmail.com",
       replyTo: data.email,
       subject: `[X] ${data.objet || "Nouveau message"} – ${data.prenom} ${data.nom}`,
       html: `
         <div style="font-family:sans-serif;max-width:580px;margin:0 auto;padding:2rem;border:1px solid #fcddd7;border-radius:12px;">
-          <h2 style="color:#B84F40;font-family:Georgia,serif;margin-bottom:1.5rem;">Nouveau message depuis pepiteboulangerie.com</h2>
+          <h2 style="color:#B84F40;font-family:Georgia,serif;margin-bottom:1.5rem;">Nouveau message depuis boulangerie.com</h2>
           <table style="width:100%;border-collapse:collapse;font-size:0.92rem;">
             <tr><td style="padding:0.5rem 0;color:#8A6560;width:120px;">Prénom</td><td style="color:#2B1714;font-weight:600;">${data.prenom}</td></tr>
             <tr><td style="padding:0.5rem 0;color:#8A6560;">Nom</td><td style="color:#2B1714;font-weight:600;">${data.nom}</td></tr>
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
             <p style="color:#4A2822;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
           </div>
           <p style="margin-top:1.5rem;font-size:0.78rem;color:#8A6560;">
-            Message reçu via le formulaire de contact de pepiteboulangerie.com
+            Message reçu via le formulaire de contact de boulangerie.com
           </p>
         </div>
       `,

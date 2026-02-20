@@ -73,7 +73,7 @@ export default function RootLayout({
                 "Boulangerie pâtisserie artisanale dans le 11ème arrondissement de Paris, boulevard Voltaire.",
               url: SEO.url,
               telephone: "+33145306192",
-              email: "pepiteboulangerie@gmail.com",
+              email: "boulangerie@gmail.com",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "195 Boulevard Voltaire",
@@ -104,10 +104,7 @@ export default function RootLayout({
               servesCuisine: ["French", "Bakery", "Pastry"],
               priceRange: "€",
               image: SEO.ogImage,
-              sameAs: [
-                "https://www.instagram.com/pepiteboulangerie_paris/",
-                "https://www.tiktok.com/@alice.lapatisserie",
-              ],
+              sameAs: ["https://www.instagram.com/boulangerie_paris/"],
             }),
           }}
         />

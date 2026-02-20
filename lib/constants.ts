@@ -34,7 +34,7 @@ export const BOUTIQUES = [
     address: "195 Boulevard Voltaire, 75011 Paris",
     hours: "7h – 20h · Tous les jours sauf lundi",
     phone: "01 45 30 61 92",
-    email: "pepiteboulangerie@gmail.com",
+    email: "boulangerie@gmail.com",
     mapsUrl: "https://maps.google.com/?cid=8298735263620160785",
     image: IMAGES.interior,
     mapEmbed:
@@ -46,7 +46,7 @@ export const BOUTIQUES = [
     address: "23 Boulevard Voltaire, 75011 Paris",
     hours: "7h – 20h · Tous les jours sauf mercredi",
     phone: "01 40 31 69 63",
-    email: "pepiteober@gmail.com",
+    email: "boulangerie@gmail.com",
     mapsUrl:
       "https://www.google.com/maps/search/23+Boulevard+Voltaire+75011+Paris",
     image: IMAGES.terrace,
@@ -95,7 +95,7 @@ export const VALEURS = [
 
 // ─── SOCIAL LINKS ─────────────────────────────────────────────────────────────
 export const SOCIALS = {
-  instagram: "https://www.instagram.com/pepiteboulangerie_paris/",
+  instagram: "https://www.instagram.com/boulangerie_paris/",
   tiktok: "https://www.tiktok.com/@alice.lapatisserie",
   linkedin: "https://www.linkedin.com/company/p%C3%A9pite-boulangerie/",
   maps: "https://maps.google.com/?cid=8298735263620160785",
@@ -107,7 +107,7 @@ export const SEO = {
   description:
     "X, boulangerie artisanale dans le 11ème arrondissement de Paris (République). Pains, viennoiseries, pâtisseries créatives. Ouvert 7j/7. Boulevard Voltaire.",
   keywords:
-    "boulangerie paris 11, pâtisserie république paris, boulangerie artisanale 11ème, pain viennoiserie patisserie paris, pepite boulangerie voltaire, boulangerie boulevard voltaire",
-  url: "https://pepiteboulangerie.com",
+    "boulangerie paris 11, pâtisserie république paris, boulangerie artisanale 11ème, pain viennoiserie patisserie paris,  boulangerie voltaire, boulangerie boulevard voltaire",
+  url: "https://boulangerie.com",
   ogImage: IMAGES.hero,
 } as const;
