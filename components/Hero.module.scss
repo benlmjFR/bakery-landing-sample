@@ -29,7 +29,7 @@
 }
 
 .tag {
-  @include mono-label(8px, 0.46em);
+  @include mono-label(12px, 0.46em);
   margin-bottom: 36px;
 }
 
@@ -43,15 +43,15 @@
     font-style: italic;
     font-size: clamp(58px, 6.5vw, 88px);
     color: $grey-mid;
-    font-weight: 300;
+    font-weight: 500;
   }
 }
 
 .subtitle {
   font-family: $font-display;
-  font-size: 19px;
+  font-size: 22px;
   font-style: italic;
-  color: #aaa;
+  color: #606060;
   letter-spacing: 0.04em;
   margin-bottom: 52px;
 }

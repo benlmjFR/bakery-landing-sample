@@ -10,8 +10,8 @@ import MapSection from "@/components/MapSection";
 import Footer from "@/components/Footer";
 import {
   DEFAULT_LOCALE,
-  PEPITE_REPUBLIQUE,
-  PEPITE_VOLTAIRE,
+  SAIME_REPUBLIQUE,
+  SAIME_VOLTAIRE,
   type Locale,
 } from "@/lib/constants";
 
@@ -34,16 +34,12 @@ export default function HomePage() {
 
         {/* 4. Carte + Contacts */}
         <MapSection
-          id="pepite-voltaire"
-          location={PEPITE_VOLTAIRE}
+          id="saime-voltaire"
+          location={SAIME_VOLTAIRE}
           reverse={false}
         />
 
-        <MapSection
-          id="pepite-republique"
-          location={PEPITE_REPUBLIQUE}
-          reverse
-        />
+        <MapSection id="saime-republique" location={SAIME_REPUBLIQUE} reverse />
       </main>
 
       <Footer />

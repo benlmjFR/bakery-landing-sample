@@ -16,9 +16,6 @@
   border-bottom: 1px solid $grey-ultra;
 }
 
-.headerLeft {
-}
-
 .title {
   @include display-title(clamp(36px, 4vw, 50px), 300);
   margin-top: 4px;

@@ -4,43 +4,43 @@
 // ─────────────────────────────────────────────────────────────
 
 // ── Couleurs ─────────────────────────────────────────────────
-$cream:         #f7f5f1;   // fond global
-$cream-warm:    #f0ece4;   // fond alternatif chaud
-$cream-dark:    #ece7dc;   // fond hero droite haut
-$cream-deep:    #d8d0c0;   // fond hero droite bas
-$cream-mid:     #e5e0d5;   // bordures claires
-$ink:           #1a1a1a;   // couleur principale
-$ink-soft:      #3a3a3a;   // hover bouton noir
-$grey-dark:     #555555;
-$grey-mid:      #888888;   // textes secondaires
-$grey-light:    #c0c0c0;   // labels mono, sous-titres
-$grey-ultra:    #e8e4dc;   // bordures, séparateurs
-$white:         #ffffff;
+$cream: #f7f5f1; // fond global
+$cream-warm: #f0ece4; // fond alternatif chaud
+$cream-dark: #ece7dc; // fond hero droite haut
+$cream-deep: #d8d0c0; // fond hero droite bas
+$cream-mid: #e5e0d5; // bordures claires
+$ink: #1a1a1a; // couleur principale
+$ink-soft: #3a3a3a; // hover bouton noir
+$grey-dark: #555555;
+$grey-mid: #888888; // textes secondaires
+$grey-light: #757575; // labels mono, sous-titres
+$grey-ultra: #e8e4dc; // bordures, séparateurs
+$white: #ffffff;
 
 // ── Typographie ──────────────────────────────────────────────
-$font-display:  'Cormorant Garamond', Georgia, serif;
-$font-mono:     'Space Mono', 'Courier New', monospace;
+$font-display: "Cormorant Garamond", Georgia, serif;
+$font-mono: "Space Mono", "Courier New", monospace;
 
 // ── Spacing ──────────────────────────────────────────────────
-$nav-height:    68px;
-$section-v:     96px;      // padding vertical section
-$section-h:     68px;      // padding horizontal section
-$section-v-sm:  56px;
-$section-h-sm:  24px;
+$nav-height: 68px;
+$section-v: 96px; // padding vertical section
+$section-h: 68px; // padding horizontal section
+$section-v-sm: 56px;
+$section-h-sm: 24px;
 
 // ── Transitions ──────────────────────────────────────────────
-$ease-out:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
-$ease-expo:     cubic-bezier(0.19, 1, 0.22, 1);
-$dur-fast:      0.22s;
-$dur-mid:       0.45s;
-$dur-slow:      0.75s;
+$ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$dur-fast: 0.22s;
+$dur-mid: 0.45s;
+$dur-slow: 0.75s;
 
 // ── Breakpoints ──────────────────────────────────────────────
-$bp-sm:   480px;
-$bp-md:   768px;
-$bp-lg:   1024px;
-$bp-xl:   1280px;
-$bp-2xl:  1536px;
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1536px;
 
 // ── Mixins ───────────────────────────────────────────────────
 @mixin mono-label($size: 7px, $spacing: 0.42em) {
@@ -61,14 +61,38 @@ $bp-2xl:  1536px;
 
 @mixin section-padding {
   padding: $section-v $section-h;
-  @media (max-width: $bp-xl) { padding: $section-v ($section-h * 0.7); }
-  @media (max-width: $bp-md) { padding: $section-v-sm $section-h-sm; }
+  @media (max-width: $bp-xl) {
+    padding: $section-v ($section-h * 0.7);
+  }
+  @media (max-width: $bp-md) {
+    padding: $section-v-sm $section-h-sm;
+  }
 }
 
 @mixin respond-to($bp) {
-  @if $bp == sm  { @media (max-width: $bp-sm)  { @content; } }
-  @if $bp == md  { @media (max-width: $bp-md)  { @content; } }
-  @if $bp == lg  { @media (max-width: $bp-lg)  { @content; } }
-  @if $bp == xl  { @media (max-width: $bp-xl)  { @content; } }
-  @if $bp == 2xl { @media (max-width: $bp-2xl) { @content; } }
+  @if $bp == sm {
+    @media (max-width: $bp-sm) {
+      @content;
+    }
+  }
+  @if $bp == md {
+    @media (max-width: $bp-md) {
+      @content;
+    }
+  }
+  @if $bp == lg {
+    @media (max-width: $bp-lg) {
+      @content;
+    }
+  }
+  @if $bp == xl {
+    @media (max-width: $bp-xl) {
+      @content;
+    }
+  }
+  @if $bp == 2xl {
+    @media (max-width: $bp-2xl) {
+      @content;
+    }
+  }
 }

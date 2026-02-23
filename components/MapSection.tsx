@@ -7,6 +7,7 @@ import styles from "./MapSection.module.scss";
 import SectionLabel from "@/components/SectionLabel";
 import Button from "@/components/Button";
 import { LocationData } from "@/app/types/types";
+import { SECTIONS } from "@/lib/constants";
 
 type MapSectionProps = {
   id: string;
@@ -24,7 +25,7 @@ export default function MapSection({
 
   return (
     <section
-      id={id}
+      id={SECTIONS.BOUTIQUES}
       ref={ref}
       className={`${styles.section} ${reverse ? styles.reverse : ""}`}
     >
@@ -107,15 +108,6 @@ export default function MapSection({
             external
           >
             Itinéraire
-          </Button>
-          <Button
-            href="https://instagram.com"
-            variant="ghost"
-            size="md"
-            external
-            icon={<Instagram size={11} />}
-          >
-            Instagram
           </Button>
         </div>
       </motion.div>

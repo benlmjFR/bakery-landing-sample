@@ -7,10 +7,7 @@ import { LocationData } from "@/app/types/types"
 
 // ── IDs des sections (ancres) ────────────────────────────────
 export const SECTIONS = {
-  HERO:      'hero',
-  WORDING:   'wording',
   MENU:      'menu',
-  GALLERY:   'gallery',
   ABOUT:     'about',
   BOUTIQUES: 'boutiques',
   CONTACT:   'contact',
@@ -20,8 +17,9 @@ export type SectionId = (typeof SECTIONS)[keyof typeof SECTIONS]
 
 // ── Navigation ───────────────────────────────────────────────
 export const NAV_LINKS = [
+ 
+  { label: 'À Propos',    href: `#${SECTIONS.ABOUT}` }, 
   { label: 'Notre Carte', href: `#${SECTIONS.MENU}` },
-  { label: 'À Propos',    href: `#${SECTIONS.ABOUT}` },
   { label: 'Boutiques',   href: `#${SECTIONS.BOUTIQUES}` },
   { label: 'Contact',     href: `#${SECTIONS.CONTACT}` },
 ] as const
@@ -98,29 +96,29 @@ export interface Boutique {
   mapEmbedUrl: string
 }
 
-export const PEPITE_VOLTAIRE: LocationData = {
-  name: 'Pépite Voltaire',
-  image: 'Pepite_022.jpg',
+export const SAIME_VOLTAIRE: LocationData = {
+  name: 'Saime Voltaire',
+  image: 'saime_022.jpg',
   address: '195 Boulevard Voltaire',
   zip: '75011',
   city: 'Paris',
   hours: 'Ouvert de 7h à 20h',
   closedDay: 'Tous les jours sauf le lundi',
-  email: 'pepiteboulangerie@gmail.com',
+  email: 'saimeboulangerie@gmail.com',
   phone: '01 45 30 61 92',
   mapEmbedUrl:
     'https://www.google.com/maps?q=195+Boulevard+Voltaire,+75011+Paris&output=embed',
 }
 
-export const PEPITE_REPUBLIQUE: LocationData = {
-  name: 'Pépite République',
-  image: 'Pepite2-JohannaAlam-terrasse 1.jpg',
+export const SAIME_REPUBLIQUE: LocationData = {
+  name: 'Saime République',
+  image: 'saime2-JohannaAlam-terrasse 1.jpg',
   address: '23 Boulevard Voltaire',
   zip: '75011',
   city: 'Paris',
   hours: 'Ouvert de 7h à 20h',
   closedDay: 'Tous les jours sauf le mercredi',
-  email: 'pepiteober@gmail.com',
+  email: 'saimeeober@gmail.com',
   phone: '01 40 31 69 63',
   mapEmbedUrl:
     'https://www.google.com/maps?q=23+Boulevard+Voltaire,+75011+Paris&output=embed',

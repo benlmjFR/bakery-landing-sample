@@ -57,7 +57,7 @@
 }
 
 .logoSub {
-  @include mono-label(7px, 0.5em);
+  @include mono-label(8px, 0.5em);
   display: block;
   color: $grey-light;
 }
@@ -76,7 +76,7 @@
 }
 
 .link {
-  @include mono-label(8px, 0.18em);
+  @include mono-label(10px, 0.18em);
   color: $grey-mid;
   text-decoration: none;
   transition: color $dur-fast $ease-out;
@@ -123,8 +123,8 @@
 }
 
 .langBtn {
-  @include mono-label(8px, 0.14em);
-  color: $grey-light;
+  @include mono-label(12px, 0.14em);
+  color: $grey-mid;
   background: none;
   border: none;
   cursor: pointer;

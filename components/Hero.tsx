@@ -24,7 +24,7 @@ const scaleIn = {
 export default function Hero() {
   return (
     <section
-      id={SECTIONS.HERO}
+      id={SECTIONS.ABOUT}
       className={styles.hero}
       aria-label="Accueil SAIME Boulangerie"
     >
