@@ -3,6 +3,8 @@
 // SAIME Boulangerie — constantes globales
 // ─────────────────────────────────────────────────────────────
 
+import { LocationData } from "@/app/types/types"
+
 // ── IDs des sections (ancres) ────────────────────────────────
 export const SECTIONS = {
   HERO:      'hero',
@@ -96,24 +98,33 @@ export interface Boutique {
   mapEmbedUrl: string
 }
 
-export const BOUTIQUES: Boutique[] = [
-  {
-    id:        'voltaire',
-    name:      'SAIME Voltaire',
-    address:   '195 Boulevard Voltaire',
-    city:      'Paris',
-    zip:       '75011',
-    hours:     '7h00 — 20h00',
-    closedDay: 'Fermé le lundi',
-    phone:     '01 45 30 61 92',
-    email:     'saime@gmail.com',
-    lat:       48.8535,
-    lng:       2.3804,
-    mapEmbedUrl:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.0!2d2.3804!3d48.8535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f15!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2s195+Bd+Voltaire%2C+75011+Paris!5e0!3m2!1sfr!2sfr!4v1',
-  },
-]
+export const PEPITE_VOLTAIRE: LocationData = {
+  name: 'Pépite Voltaire',
+  image: 'Pepite_022.jpg',
+  address: '195 Boulevard Voltaire',
+  zip: '75011',
+  city: 'Paris',
+  hours: 'Ouvert de 7h à 20h',
+  closedDay: 'Tous les jours sauf le lundi',
+  email: 'pepiteboulangerie@gmail.com',
+  phone: '01 45 30 61 92',
+  mapEmbedUrl:
+    'https://www.google.com/maps?q=195+Boulevard+Voltaire,+75011+Paris&output=embed',
+}
 
+export const PEPITE_REPUBLIQUE: LocationData = {
+  name: 'Pépite République',
+  image: 'Pepite2-JohannaAlam-terrasse 1.jpg',
+  address: '23 Boulevard Voltaire',
+  zip: '75011',
+  city: 'Paris',
+  hours: 'Ouvert de 7h à 20h',
+  closedDay: 'Tous les jours sauf le mercredi',
+  email: 'pepiteober@gmail.com',
+  phone: '01 40 31 69 63',
+  mapEmbedUrl:
+    'https://www.google.com/maps?q=23+Boulevard+Voltaire,+75011+Paris&output=embed',
+}
 // ── Réseaux sociaux ───────────────────────────────────────────
 export const SOCIAL = {
   instagram: 'https://www.instagram.com/',

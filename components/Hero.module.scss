@@ -1,5 +1,5 @@
 // components/Hero.module.scss
-@import '@/styles/variables';
+@import "@/styles/variables";
 
 .hero {
   display: grid;
@@ -20,8 +20,12 @@
   justify-content: center;
   padding: 80px $section-h;
 
-  @include respond-to(xl) { padding: 60px ($section-h * 0.7); }
-  @include respond-to(md) { padding: 48px $section-h-sm; }
+  @include respond-to(xl) {
+    padding: 60px ($section-h * 0.7);
+  }
+  @include respond-to(md) {
+    padding: 48px $section-h-sm;
+  }
 }
 
 .tag {
@@ -66,8 +70,12 @@
   background: linear-gradient(140deg, $cream-dark 0%, $cream-deep 100%);
   min-height: 540px;
 
-  @include respond-to(lg)  { min-height: 380px; }
-  @include respond-to(md)  { min-height: 280px; }
+  @include respond-to(lg) {
+    min-height: 380px;
+  }
+  @include respond-to(md) {
+    min-height: 280px;
+  }
 }
 
 // Placeholder (retirer quand la photo est là)
@@ -88,7 +96,10 @@
   pointer-events: none;
 }
 
-.placeholderEmoji { font-size: 52px; opacity: 0.2; }
+.placeholderEmoji {
+  font-size: 52px;
+  opacity: 0.2;
+}
 
 .placeholderText {
   @include mono-label(7px, 0.38em);

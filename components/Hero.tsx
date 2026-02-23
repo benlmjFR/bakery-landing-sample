@@ -1,25 +1,25 @@
 // components/Hero.tsx
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
-import Button from './Button'
-import { SECTIONS } from '@/lib/constants'
-import styles from './Hero.module.scss'
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Button from "./Button";
+import { SECTIONS } from "@/lib/constants";
+import styles from "./Hero.module.scss";
 
 // ── Variantes animation ──────────────────────────────────────
 const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 26 },
-  animate:    { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 26 },
+  animate: { opacity: 1, y: 0 },
   transition: { duration: 0.85, delay, ease: [0.19, 1, 0.22, 1] },
-})
+});
 
 const scaleIn = {
-  initial:    { opacity: 0, scale: 1.05 },
-  animate:    { opacity: 1, scale: 1 },
+  initial: { opacity: 0, scale: 1.05 },
+  animate: { opacity: 1, scale: 1 },
   transition: { duration: 1.1, delay: 0.1, ease: [0.19, 1, 0.22, 1] },
-}
+};
 
 export default function Hero() {
   return (
@@ -40,7 +40,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p className={styles.subtitle} {...fadeUp(0.38)}>
-          L'art du pain au cœur de Paris.
+          L&apos;art du pain au cœur de Paris.
         </motion.p>
 
         <motion.div className={styles.cta} {...fadeUp(0.5)}>
@@ -73,10 +73,12 @@ export default function Hero() {
         */}
         <div className={styles.placeholder}>
           <span className={styles.placeholderFrame} aria-hidden />
-          <span className={styles.placeholderEmoji} aria-hidden>🍞</span>
+          <span className={styles.placeholderEmoji} aria-hidden>
+            🍞
+          </span>
           <span className={styles.placeholderText}>Photo produit hero</span>
         </div>
       </motion.div>
     </section>
-  )
+  );
 }

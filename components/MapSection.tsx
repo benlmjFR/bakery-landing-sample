@@ -1,102 +1,107 @@
-// components/MapSection.tsx
-'use client'
+"use client";
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { MapPin, Clock, Mail, Phone, Instagram } from 'lucide-react'
-import SectionLabel from './SectionLabel'
-import Button from './Button'
-import { BOUTIQUES, SOCIAL, SECTIONS } from '@/lib/constants'
-import styles from './MapSection.module.scss'
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { MapPin, Clock, Mail, Phone, Instagram } from "lucide-react";
+import styles from "./MapSection.module.scss";
+import SectionLabel from "@/components/SectionLabel";
+import Button from "@/components/Button";
+import { LocationData } from "@/app/types/types";
 
-export default function MapSection() {
-  const ref   = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+type MapSectionProps = {
+  id: string;
+  location: LocationData;
+  reverse?: boolean;
+};
 
-  // On prend la première boutique pour l'affichage principal
-  const shop = BOUTIQUES[0]
+export default function MapSection({
+  id,
+  location,
+  reverse = false,
+}: MapSectionProps) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section
-      id={SECTIONS.BOUTIQUES}
-      className={styles.section}
+      id={id}
       ref={ref}
+      className={`${styles.section} ${reverse ? styles.reverse : ""}`}
     >
       {/* ── MAP ── */}
       <div className={styles.mapZone}>
         <iframe
           className={styles.map}
-          src={shop.mapEmbedUrl}
+          src={location.mapEmbedUrl}
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
-          title={`${shop.name} — Localisation Google Maps`}
-          aria-label={`Carte interactive — ${shop.name}, ${shop.address}, ${shop.city}`}
+          title={`${location.name} — Localisation`}
         />
-        {/* Texture overlay pour rester dans l'aesthetic */}
         <div className={styles.mapOverlay} aria-hidden />
       </div>
 
       {/* ── INFOS ── */}
       <motion.div
-        id={SECTIONS.CONTACT}
         className={styles.info}
-        initial={{ opacity: 0, x: 32 }}
+        initial={{ opacity: 0, x: reverse ? -32 : 32 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
       >
         <div className={styles.infoTop}>
           <SectionLabel index="03" label="Nous trouver" light />
-          <h2 className={styles.infoTitle}>{shop.name}</h2>
+          <h2 className={styles.infoTitle}>{location.name}</h2>
         </div>
 
         <div className={styles.infoBlocks}>
-          {/* Adresse */}
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <MapPin size={9} strokeWidth={1.5} aria-hidden />
+              <MapPin size={9} />
               Adresse
             </span>
             <p className={styles.blockValue}>
-              {shop.address}<br />
-              {shop.zip} {shop.city}
+              {location.address}
+              <br />
+              {location.zip} {location.city}
             </p>
           </div>
 
-          {/* Horaires */}
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Clock size={9} strokeWidth={1.5} aria-hidden />
+              <Clock size={9} />
               Horaires
             </span>
             <p className={styles.blockValue}>
-              {shop.hours}<br />
-              <span className={styles.closed}>{shop.closedDay}</span>
+              {location.hours}
+              <br />
+              <span className={styles.closed}>{location.closedDay}</span>
             </p>
           </div>
 
-          {/* Contact */}
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Mail size={9} strokeWidth={1.5} aria-hidden />
+              <Mail size={9} />
               Contact
             </span>
             <p className={styles.blockValue}>
-              <a href={`mailto:${shop.email}`} className={styles.link}>
-                {shop.email}
-              </a><br />
-              <a href={`tel:${shop.phone.replace(/\s/g, '')}`} className={styles.link}>
-                <Phone size={9} strokeWidth={1.5} aria-hidden />
-                {shop.phone}
+              <a href={`mailto:${location.email}`} className={styles.link}>
+                {location.email}
+              </a>
+              <br />
+              <a
+                href={`tel:${location.phone.replace(/\s/g, "")}`}
+                className={styles.link}
+              >
+                <Phone size={9} />
+                {location.phone}
               </a>
             </p>
           </div>
         </div>
 
-        {/* CTA */}
         <div className={styles.infoCta}>
           <Button
-            href={`https://maps.google.com/?q=${shop.address},${shop.city}`}
+            href={`https://maps.google.com/?q=${location.address},${location.city}`}
             variant="white"
             size="md"
             external
@@ -104,17 +109,16 @@ export default function MapSection() {
             Itinéraire
           </Button>
           <Button
-            href={SOCIAL.instagram}
+            href="https://instagram.com"
             variant="ghost"
             size="md"
             external
-            icon={<Instagram size={11} strokeWidth={1.5} />}
-            iconPos="left"
+            icon={<Instagram size={11} />}
           >
             Instagram
           </Button>
         </div>
       </motion.div>
     </section>
-  )
+  );
 }
