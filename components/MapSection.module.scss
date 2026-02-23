@@ -1,5 +1,5 @@
 // components/MapSection.module.scss
-@import "@/styles/variables";
+@import '@/styles/variables';
 
 .section {
   display: grid;
@@ -9,14 +9,6 @@
   @include respond-to(lg) {
     grid-template-columns: 1fr;
     min-height: auto;
-  }
-}
-
-.reverse {
-  direction: rtl;
-
-  > * {
-    direction: ltr;
   }
 }
 
@@ -39,9 +31,7 @@
   filter: grayscale(25%) contrast(1.05) brightness(1.02);
   transition: filter $dur-slow $ease-out;
 
-  &:hover {
-    filter: grayscale(0%) contrast(1) brightness(1);
-  }
+  &:hover { filter: grayscale(0%) contrast(1) brightness(1); }
 }
 
 // Texture quasi invisible pour unifier avec le reste
@@ -64,20 +54,18 @@
   justify-content: center;
   gap: 44px;
 
-  @include respond-to(xl) {
-    padding: 56px ($section-h * 0.7);
-  }
-  @include respond-to(md) {
-    padding: 48px $section-h-sm;
-  }
+  @include respond-to(xl) { padding: 56px ($section-h * 0.7); }
+  @include respond-to(md) { padding: 48px $section-h-sm; }
 }
+
+.infoTop {}
 
 .infoTitle {
   font-family: $font-display;
   font-weight: 300;
   font-size: clamp(28px, 3vw, 40px);
   letter-spacing: 0.12em;
-  color: $white;
+  color: rgba(255, 255, 255, 0.82);
   margin-top: 6px;
 }
 
@@ -88,12 +76,14 @@
   gap: 30px;
 }
 
+.block {}
+
 .blockLabel {
   display: flex;
   align-items: center;
   gap: 7px;
-  @include mono-label(8px, 0.42em);
-  color: $white;
+  @include mono-label(7px, 0.42em);
+  color: rgba(255, 255, 255, 0.22);
   margin-bottom: 10px;
 }
 
@@ -107,7 +97,7 @@
 
 .closed {
   font-style: italic;
-  color: rgba(244, 244, 244, 0.35);
+  color: rgba(255, 255, 255, 0.35);
   font-size: 14px;
 }
 
@@ -118,9 +108,7 @@
   align-items: center;
   gap: 6px;
   transition: color $dur-fast $ease-out;
-  &:hover {
-    color: $white;
-  }
+  &:hover { color: $white; }
 }
 
 // ── CTA ───────────────────────────────────────────────────────

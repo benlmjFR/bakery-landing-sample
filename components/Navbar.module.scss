@@ -1,19 +1,17 @@
 // components/Navbar.module.scss
-@import "@/styles/variables";
+@import '@/styles/variables';
 
 .nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 900;
   background: rgba(247, 245, 241, 0.88);
   border-bottom: 1px solid transparent;
   backdrop-filter: blur(18px);
   transition:
-    background $dur-mid $ease-out,
-    border-color $dur-mid $ease-out,
-    box-shadow $dur-mid $ease-out;
+    background     $dur-mid $ease-out,
+    border-color   $dur-mid $ease-out,
+    box-shadow     $dur-mid $ease-out;
 
   &.scrolled {
     background: rgba(247, 245, 241, 0.97);
@@ -31,9 +29,7 @@
   max-width: 1600px;
   margin: 0 auto;
 
-  @include respond-to(md) {
-    padding: 0 $section-h-sm;
-  }
+  @include respond-to(md) { padding: 0 $section-h-sm; }
 }
 
 // ── Logo ──────────────────────────────────────────────────────
@@ -51,32 +47,24 @@
   color: $ink;
   transition: color $dur-fast $ease-out;
 
-  .logo:hover & {
-    color: $grey-mid;
-  }
+  .logo:hover & { color: $grey-mid; }
 }
 
 .logoSub {
-  @include mono-label(8px, 0.5em);
+  @include mono-label(7px, 0.5em);
   display: block;
   color: $grey-light;
 }
 
 // ── Nav links ─────────────────────────────────────────────────
 .links {
-  @include respond-to(lg) {
-    display: none;
-  }
+  @include respond-to(lg) { display: none; }
 
-  ul {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
+  ul { display: flex; gap: 36px; list-style: none; }
 }
 
 .link {
-  @include mono-label(10px, 0.18em);
+  @include mono-label(8px, 0.18em);
   color: $grey-mid;
   text-decoration: none;
   transition: color $dur-fast $ease-out;
@@ -84,11 +72,9 @@
   padding-bottom: 2px;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
+    bottom: -1px; left: 0; right: 0;
     height: 1px;
     background: $ink;
     transform: scaleX(0);
@@ -98,9 +84,7 @@
 
   &:hover {
     color: $ink;
-    &::after {
-      transform: scaleX(1);
-    }
+    &::after { transform: scaleX(1); }
   }
 }
 
@@ -111,33 +95,21 @@
   gap: 20px;
 }
 
-.lang {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.langItem {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.lang { display: flex; align-items: center; gap: 6px; }
+.langItem { display: flex; align-items: center; gap: 6px; }
 
 .langBtn {
-  @include mono-label(12px, 0.14em);
-  color: $grey-mid;
+  @include mono-label(8px, 0.14em);
+  color: $grey-light;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   transition: color $dur-fast $ease-out;
-  &:hover {
-    color: $ink;
-  }
+  &:hover { color: $ink; }
 }
 
-.langOn {
-  color: $ink !important;
-}
+.langOn { color: $ink !important; }
 
 .langSep {
   @include mono-label(7px, 0);
@@ -153,13 +125,9 @@
   color: $ink;
   padding: 4px;
   transition: opacity $dur-fast $ease-out;
-  &:hover {
-    opacity: 0.45;
-  }
+  &:hover { opacity: 0.45; }
 
-  @include respond-to(lg) {
-    display: flex;
-  }
+  @include respond-to(lg) { display: flex; }
 }
 
 // ── Mobile menu ───────────────────────────────────────────────
@@ -168,10 +136,7 @@
   background: rgba(247, 245, 241, 0.99);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 
-  ul {
-    list-style: none;
-    padding: 6px $section-h-sm 18px;
-  }
+  ul { list-style: none; padding: 6px $section-h-sm 18px; }
 
   li a {
     display: block;
@@ -181,8 +146,6 @@
     text-decoration: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     transition: color $dur-fast $ease-out;
-    &:hover {
-      color: $ink;
-    }
+    &:hover { color: $ink; }
   }
 }

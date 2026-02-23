@@ -1,0 +1,258 @@
+// components/ProductGallery.module.scss
+@import '@/styles/variables';
+
+.section {
+  @include section-padding;
+  background: $white;
+  overflow: hidden;
+}
+
+// ── Header ────────────────────────────────────────────────────
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid $grey-ultra;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.headerLeft {}
+
+.title {
+  @include display-title(clamp(36px, 4vw, 50px), 300);
+  margin-top: 4px;
+}
+
+// ── Filtres ───────────────────────────────────────────────────
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  font-family: $font-mono;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $grey-mid;
+  background: $cream;
+  border: 1px solid $grey-ultra;
+  cursor: pointer;
+  transition:
+    background    $dur-fast $ease-out,
+    color         $dur-fast $ease-out,
+    border-color  $dur-fast $ease-out;
+
+  &:hover:not(.filterActive) {
+    color: $ink;
+    border-color: $grey-light;
+  }
+
+  &.filterActive {
+    background: $ink;
+    color: $white;
+    border-color: $ink;
+
+    .filterIcon { opacity: 0.7; }
+  }
+}
+
+.filterIcon {
+  font-size: 14px;
+  opacity: 0.5;
+  transition: opacity $dur-fast $ease-out;
+}
+
+// ── Grille ────────────────────────────────────────────────────
+.gridWrapper {
+  min-height: 360px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 280px;
+  gap: 3px;
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 240px;
+  }
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+  }
+  @include respond-to(sm) {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 160px;
+  }
+}
+
+// ── Photo ─────────────────────────────────────────────────────
+.photoBtn {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: $cream-dark;
+  border: none;
+  padding: 0;
+  display: block;
+
+  // Effect au hover
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background $dur-mid $ease-out;
+  }
+
+  &:hover::after {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  // Zoom léger sur l'image au hover
+  img {
+    transition: transform $dur-slow $ease-out;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+
+  &.photoBtnWide {
+    grid-column: span 2;
+
+    @include respond-to(sm) { grid-column: span 1; }
+  }
+}
+
+// ── Placeholder si pas de photo ───────────────────────────────
+.photoPlaceholder {
+  width: 100%; height: 100%;
+  background: $cream-dark;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.photoPlaceholderIcon {
+  font-size: 32px;
+  opacity: 0.2;
+}
+
+.photoPlaceholderText {
+  @include mono-label(7px, 0.3em);
+  color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 0 12px;
+}
+
+.empty {
+  font-family: $font-display;
+  font-style: italic;
+  font-size: 16px;
+  color: $grey-light;
+  padding: 80px 0;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+// ── Lightbox ──────────────────────────────────────────────────
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 18, 16, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  backdrop-filter: blur(6px);
+
+  @include respond-to(md) { padding: 24px; }
+}
+
+.lightboxImgWrap {
+  position: relative;
+  max-width: min(840px, 90vw);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+
+  @include respond-to(md) { aspect-ratio: 3 / 4; }
+}
+
+.lightboxCount {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  @include mono-label(8px, 0.2em);
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 24px; right: 24px;
+  color: rgba(255, 255, 255, 0.55);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all $dur-fast $ease-out;
+
+  &:hover {
+    color: $white;
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.lightboxNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.55);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all $dur-fast $ease-out;
+
+  &:hover {
+    color: $white;
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  &.lightboxPrev { left: 24px; }
+  &.lightboxNext { right: 24px; }
+
+  @include respond-to(md) {
+    width: 36px; height: 36px;
+    &.lightboxPrev { left: 12px; }
+    &.lightboxNext { right: 12px; }
+  }
+}
+
+.lightboxCaption {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  @include mono-label(8px, 0.2em);
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+}

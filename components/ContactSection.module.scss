@@ -1,0 +1,189 @@
+// components/ContactSection.module.scss
+@import '@/styles/variables';
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 0;
+  background: $cream;
+  min-height: 560px;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Left ──────────────────────────────────────────────────────
+.left {
+  padding: $section-v $section-h;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid $grey-ultra;
+
+  @include respond-to(xl) { padding: $section-v ($section-h * 0.7); }
+  @include respond-to(lg) { border-right: none; border-bottom: 1px solid $grey-ultra; padding: $section-v-sm $section-h-sm; }
+}
+
+.title {
+  @include display-title(clamp(36px, 4vw, 52px), 300);
+  margin-bottom: 20px;
+  margin-top: 4px;
+}
+
+.subtitle {
+  font-family: $font-display;
+  font-size: 17px;
+  font-style: italic;
+  color: $grey-mid;
+  line-height: 1.7;
+  max-width: 340px;
+  margin-bottom: 36px;
+}
+
+.directContact {}
+
+.emailLink {
+  @include mono-label(8px, 0.15em);
+  color: $ink;
+  text-decoration: none;
+  border-bottom: 1px solid $grey-ultra;
+  padding-bottom: 3px;
+  transition: border-color $dur-fast $ease-out;
+  &:hover { border-color: $ink; }
+}
+
+// ── Right ─────────────────────────────────────────────────────
+.right {
+  padding: $section-v $section-h;
+  background: $white;
+
+  @include respond-to(xl) { padding: $section-v ($section-h * 0.7); }
+  @include respond-to(md) { padding: $section-v-sm $section-h-sm; }
+}
+
+// ── Formulaire ────────────────────────────────────────────────
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 560px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @include respond-to(sm) { grid-template-columns: 1fr; }
+}
+
+// ── Champ ─────────────────────────────────────────────────────
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.label {
+  @include mono-label(7px, 0.35em);
+  color: $grey-mid;
+}
+
+.input {
+  font-family: $font-display;
+  font-size: 15px;
+  color: $ink;
+  background: $cream;
+  border: 1px solid $grey-ultra;
+  padding: 13px 16px;
+  width: 100%;
+  outline: none;
+  border-radius: 0;
+  transition:
+    border-color $dur-fast $ease-out,
+    background    $dur-fast $ease-out;
+  appearance: none;
+
+  &::placeholder {
+    color: $grey-light;
+    font-style: italic;
+  }
+
+  &:focus {
+    border-color: $ink;
+    background: $white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.inputError {
+    border-color: #c0392b;
+    background: #fff8f7;
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 130px;
+  font-family: $font-display;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.errorMsg {
+  @include mono-label(7px, 0.12em);
+  color: #c0392b;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+}
+
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+// ── Feedback (succès / erreur) ────────────────────────────────
+.feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 48px 40px;
+  background: $cream;
+  max-width: 420px;
+
+  p {
+    font-family: $font-display;
+    font-size: 18px;
+    font-style: italic;
+    color: $ink;
+    line-height: 1.65;
+  }
+
+  &.feedbackError .feedbackIcon { color: #c0392b; }
+}
+
+.feedbackIcon {
+  color: $ink;
+  opacity: 0.6;
+}
+
+.resetBtn {
+  @include mono-label(8px, 0.18em);
+  color: $grey-mid;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+  font-family: $font-mono;
+  transition: color $dur-fast $ease-out;
+  &:hover { color: $ink; }
+}

@@ -1,48 +1,34 @@
 // app/page.tsx
-"use client";
+'use client'
 
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import SigBar from "@/components/SigBar";
-import MenuSection from "@/components/MenuSection";
-import MapSection from "@/components/MapSection";
-import Footer from "@/components/Footer";
-import {
-  DEFAULT_LOCALE,
-  SAIME_REPUBLIQUE,
-  SAIME_VOLTAIRE,
-  type Locale,
-} from "@/lib/constants";
+import { useState } from 'react'
+import { I18nProvider }   from '@/lib/i18n'
+import Navbar             from '@/components/Navbar'
+import Hero               from '@/components/Hero'
+import SigBar             from '@/components/SigBar'
+import MenuSection        from '@/components/MenuSection'
+import ProductGallery     from '@/components/ProductGallery'
+import MapSection         from '@/components/MapSection'
+import ContactSection     from '@/components/ContactSection'
+import Footer             from '@/components/Footer'
 
 export default function HomePage() {
-  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
+  // Filtre galerie piloté depuis MenuSection → "Voir les photos"
+  const [galleryFilter, setGalleryFilter] = useState<string>('pains')
 
   return (
-    <>
-      <Navbar locale={locale} onLocaleChange={setLocale} />
-
+    // I18nProvider injecte locale + t() dans tout l'arbre
+    <I18nProvider>
+      <Navbar />
       <main>
-        {/* 1. Hero — plein écran, titre + CTA */}
         <Hero />
-
-        {/* 2. SigBar — mots qui défilent */}
-        <SigBar speed={40} />
-
-        {/* 3. Sélection Produits */}
-        <MenuSection />
-
-        {/* 4. Carte + Contacts */}
-        <MapSection
-          id="saime-voltaire"
-          location={SAIME_VOLTAIRE}
-          reverse={false}
-        />
-
-        <MapSection id="saime-republique" location={SAIME_REPUBLIQUE} reverse />
+        <SigBar speed={30} />
+        <MenuSection onGalleryFilter={setGalleryFilter} />
+        <ProductGallery />
+        <MapSection />
+        <ContactSection />
       </main>
-
       <Footer />
-    </>
-  );
+    </I18nProvider>
+  )
 }

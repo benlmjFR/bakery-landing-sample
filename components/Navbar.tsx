@@ -4,17 +4,14 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { NAV_LINKS, LOCALES, type Locale } from '@/lib/constants'
+import { NAV_LINK_KEYS, LOCALES, type Locale } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 import styles from './Navbar.module.scss'
 
-interface NavbarProps {
-  locale: Locale
-  onLocaleChange: (l: Locale) => void
-}
-
-export default function Navbar({ locale, onLocaleChange }: NavbarProps) {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
+export default function Navbar() {
+  const { locale, setLocale, t } = useI18n()
+  const [scrolled, setScrolled]  = useState(false)
+  const [menuOpen, setMenuOpen]  = useState(false)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -31,32 +28,30 @@ export default function Navbar({ locale, onLocaleChange }: NavbarProps) {
     >
       <div className={styles.inner}>
 
-        {/* ── Logo ── */}
         <a href="#" className={styles.logo} aria-label="SAIME — Accueil">
           <span className={styles.logoName}>SAIME</span>
           <small className={styles.logoSub}>BOULANGERIE · PARIS</small>
         </a>
 
-        {/* ── Links desktop ── */}
         <nav className={styles.links} aria-label="Navigation principale">
           <ul>
-            {NAV_LINKS.map((l) => (
+            {NAV_LINK_KEYS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={styles.link}>{l.label}</a>
+                <a href={l.href} className={styles.link}>{t(l.key)}</a>
               </li>
             ))}
           </ul>
         </nav>
 
-        {/* ── Droite : lang + burger ── */}
         <div className={styles.right}>
           <div className={styles.lang} role="group" aria-label="Langue">
             {LOCALES.map((l, i) => (
               <span key={l} className={styles.langItem}>
                 <button
                   className={[styles.langBtn, locale === l ? styles.langOn : ''].join(' ')}
-                  onClick={() => onLocaleChange(l)}
+                  onClick={() => setLocale(l)}
                   aria-pressed={locale === l}
+                  aria-label={`Changer la langue en ${l.toUpperCase()}`}
                 >
                   {l.toUpperCase()}
                 </button>
@@ -78,7 +73,6 @@ export default function Navbar({ locale, onLocaleChange }: NavbarProps) {
         </div>
       </div>
 
-      {/* ── Menu mobile ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -89,7 +83,7 @@ export default function Navbar({ locale, onLocaleChange }: NavbarProps) {
             transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <ul>
-              {NAV_LINKS.map((l, i) => (
+              {NAV_LINK_KEYS.map((l, i) => (
                 <motion.li
                   key={l.href}
                   initial={{ x: -16, opacity: 0 }}
@@ -97,7 +91,7 @@ export default function Navbar({ locale, onLocaleChange }: NavbarProps) {
                   transition={{ delay: i * 0.055 }}
                 >
                   <a href={l.href} onClick={() => setMenuOpen(false)}>
-                    {l.label}
+                    {t(l.key)}
                   </a>
                 </motion.li>
               ))}

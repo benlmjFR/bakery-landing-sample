@@ -1,5 +1,5 @@
 // components/Footer.module.scss
-@import "@/styles/variables";
+@import '@/styles/variables';
 
 .footer {
   background: $ink;
@@ -9,9 +9,7 @@
   justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
 
-  @include respond-to(md) {
-    padding: 16px $section-h-sm;
-  }
+  @include respond-to(md) { padding: 16px $section-h-sm; }
 }
 
 .left {
@@ -42,9 +40,7 @@
   display: flex;
   align-items: center;
   transition: color $dur-fast $ease-out;
-  &:hover {
-    color: rgba(255, 255, 255, 0.65);
-  }
+  &:hover { color: rgba(255, 255, 255, 0.65); }
 }
 
 .tiktok {
