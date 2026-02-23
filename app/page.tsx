@@ -1,29 +1,37 @@
+// app/page.tsx
+'use client'
+
+import { useState } from 'react'
 import Navbar     from '@/components/Navbar'
 import Hero       from '@/components/Hero'
 import SigBar     from '@/components/SigBar'
-import About      from '@/components/About'
 import MenuSection from '@/components/MenuSection'
-import Gallery    from '@/components/Gallery'
-import Valeurs    from '@/components/Valeurs'
-import Boutiques  from '@/components/Boutiques'
-import MapSection from '@/components/MapSection'
-import Contact    from '@/components/Contact'
+import MapSection  from '@/components/MapSection'
 import Footer     from '@/components/Footer'
+import { DEFAULT_LOCALE, type Locale } from '@/lib/constants'
 
-export default function Home() {
+export default function HomePage() {
+  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE)
+
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <SigBar />
-      <About />
-      <MenuSection />
-      <Gallery />
-      <Valeurs />
-      <Boutiques />
-      <MapSection />
-      <Contact />
+    <>
+      <Navbar locale={locale} onLocaleChange={setLocale} />
+
+      <main>
+        {/* 1. Hero — plein écran, titre + CTA */}
+        <Hero />
+
+        {/* 2. SigBar — mots qui défilent */}
+        <SigBar speed={30} />
+
+        {/* 3. Sélection Produits */}
+        <MenuSection />
+
+        {/* 4. Carte + Contacts */}
+        <MapSection />
+      </main>
+
       <Footer />
-    </main>
+    </>
   )
 }

@@ -1,83 +1,120 @@
-"use client";
-import { motion } from "framer-motion";
-import { BOUTIQUES } from "@/lib/constants";
+// components/MapSection.tsx
+'use client'
+
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { MapPin, Clock, Mail, Phone, Instagram } from 'lucide-react'
+import SectionLabel from './SectionLabel'
+import Button from './Button'
+import { BOUTIQUES, SOCIAL, SECTIONS } from '@/lib/constants'
+import styles from './MapSection.module.scss'
 
 export default function MapSection() {
-  const b = BOUTIQUES[0];
-  return (
-    <div style={{ position: "relative", height: "clamp(300px,45vw,440px)" }}>
-      <iframe
-        src={b.mapEmbed}
-        style={{ width: "100%", height: "100%", border: 0 }}
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        title={`Carte ${b.name}`}
-      />
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        style={{
-          position: "absolute",
-          top: "2.5rem",
-          left: "4rem",
-          background: "rgba(255,250,249,0.92)",
-          backdropFilter: "blur(22px)",
-          WebkitBackdropFilter: "blur(22px)",
-          border: "1px solid rgba(255,255,255,0.8)",
-          borderRadius: "var(--radius-lg)",
-          padding: "1.5rem 1.8rem",
-          maxWidth: 240,
-          boxShadow: "var(--shadow-md)",
-        }}
-        className="map-pin"
-      >
-        <h4
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "1.05rem",
-            color: "var(--dark-soft)",
-            marginBottom: "0.7rem",
-            fontWeight: 700,
-          }}
-        >
-          {b.name}
-        </h4>
-        <p
-          style={{
-            fontSize: "0.82rem",
-            color: "var(--text-light)",
-            lineHeight: 1.75,
-          }}
-        >
-          {b.address}
-          <br />
-          7h – 20h · sf. lundi
-        </p>
-        <span
-          style={{
-            display: "inline-block",
-            marginTop: "0.9rem",
-            background: "var(--gradient-salmon)",
-            color: "white",
-            fontSize: "0.7rem",
-            letterSpacing: "0.08em",
-            padding: "0.35rem 0.9rem",
-            borderRadius: "50px",
-            fontWeight: 600,
-          }}
-        >
-          Ouvert aujourd&apos;hui
-        </span>
-      </motion.div>
+  const ref   = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
-      <style>{`
-        @media (max-width:600px) {
-          .map-pin { left:1rem !important; top:1rem !important; right:1rem !important; max-width:none !important; }
-        }
-      `}</style>
-    </div>
-  );
+  // On prend la première boutique pour l'affichage principal
+  const shop = BOUTIQUES[0]
+
+  return (
+    <section
+      id={SECTIONS.BOUTIQUES}
+      className={styles.section}
+      ref={ref}
+    >
+      {/* ── MAP ── */}
+      <div className={styles.mapZone}>
+        <iframe
+          className={styles.map}
+          src={shop.mapEmbedUrl}
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+          title={`${shop.name} — Localisation Google Maps`}
+          aria-label={`Carte interactive — ${shop.name}, ${shop.address}, ${shop.city}`}
+        />
+        {/* Texture overlay pour rester dans l'aesthetic */}
+        <div className={styles.mapOverlay} aria-hidden />
+      </div>
+
+      {/* ── INFOS ── */}
+      <motion.div
+        id={SECTIONS.CONTACT}
+        className={styles.info}
+        initial={{ opacity: 0, x: 32 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+      >
+        <div className={styles.infoTop}>
+          <SectionLabel index="03" label="Nous trouver" light />
+          <h2 className={styles.infoTitle}>{shop.name}</h2>
+        </div>
+
+        <div className={styles.infoBlocks}>
+          {/* Adresse */}
+          <div className={styles.block}>
+            <span className={styles.blockLabel}>
+              <MapPin size={9} strokeWidth={1.5} aria-hidden />
+              Adresse
+            </span>
+            <p className={styles.blockValue}>
+              {shop.address}<br />
+              {shop.zip} {shop.city}
+            </p>
+          </div>
+
+          {/* Horaires */}
+          <div className={styles.block}>
+            <span className={styles.blockLabel}>
+              <Clock size={9} strokeWidth={1.5} aria-hidden />
+              Horaires
+            </span>
+            <p className={styles.blockValue}>
+              {shop.hours}<br />
+              <span className={styles.closed}>{shop.closedDay}</span>
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div className={styles.block}>
+            <span className={styles.blockLabel}>
+              <Mail size={9} strokeWidth={1.5} aria-hidden />
+              Contact
+            </span>
+            <p className={styles.blockValue}>
+              <a href={`mailto:${shop.email}`} className={styles.link}>
+                {shop.email}
+              </a><br />
+              <a href={`tel:${shop.phone.replace(/\s/g, '')}`} className={styles.link}>
+                <Phone size={9} strokeWidth={1.5} aria-hidden />
+                {shop.phone}
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className={styles.infoCta}>
+          <Button
+            href={`https://maps.google.com/?q=${shop.address},${shop.city}`}
+            variant="white"
+            size="md"
+            external
+          >
+            Itinéraire
+          </Button>
+          <Button
+            href={SOCIAL.instagram}
+            variant="ghost"
+            size="md"
+            external
+            icon={<Instagram size={11} strokeWidth={1.5} />}
+            iconPos="left"
+          >
+            Instagram
+          </Button>
+        </div>
+      </motion.div>
+    </section>
+  )
 }

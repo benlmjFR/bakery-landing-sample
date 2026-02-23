@@ -1,0 +1,100 @@
+// components/Button.module.scss
+@import "@/styles/variables";
+
+// ── Base ─────────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: $font-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition:
+    background $dur-fast $ease-out,
+    color $dur-fast $ease-out,
+    border-color $dur-fast $ease-out;
+  white-space: nowrap;
+  user-select: none;
+
+  &.full {
+    width: 100%;
+  }
+  &.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
+// ── Tailles ───────────────────────────────────────────────────
+.sm {
+  font-size: 7px;
+  padding: 10px 20px;
+}
+.md {
+  font-size: 8px;
+  padding: 13px 28px;
+}
+.lg {
+  font-size: 9px;
+  padding: 16px 36px;
+}
+
+// ── Variante BLACK ────────────────────────────────────────────
+.black {
+  background: $ink;
+  color: $white;
+  border-color: $ink;
+
+  &:hover:not(.disabled) {
+    background: $ink-soft;
+    border-color: $ink-soft;
+  }
+  &:active:not(.disabled) {
+    background: #000;
+  }
+}
+
+// ── Variante WHITE ────────────────────────────────────────────
+.white {
+  background: $white;
+  color: $ink;
+  border-color: $white;
+
+  &:hover:not(.disabled) {
+    background: $cream-warm;
+    border-color: $cream-warm;
+  }
+  &:active:not(.disabled) {
+    background: $cream-dark;
+  }
+}
+
+// ── Variante GHOST ────────────────────────────────────────────
+// Transparent avec bordure, s'adapte au fond (clair ou sombre)
+.ghost {
+  background: transparent;
+  color: currentColor;
+  opacity: 0.25;
+  &:hover:not(.disabled) {
+    opacity: 0.5;
+  }
+  &:active:not(.disabled) {
+    opacity: 0.1;
+  }
+}
+
+// ── Icône ─────────────────────────────────────────────────────
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+// ── Label ─────────────────────────────────────────────────────
+.label {
+  display: inline-block;
+}

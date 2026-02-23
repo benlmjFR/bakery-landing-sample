@@ -1,38 +1,24 @@
-'use client'
+// components/SectionLabel.tsx
+import styles from './SectionLabel.module.scss'
 
 interface SectionLabelProps {
-  children: React.ReactNode
-  light?: boolean
-  centered?: boolean
+  index?: string      // ex: "01"
+  label: string       // ex: "Notre Carte"
+  light?: boolean     // sur fond sombre
+  className?: string
 }
 
-export default function SectionLabel({ children, light = false, centered = false }: SectionLabelProps) {
+export default function SectionLabel({
+  index,
+  label,
+  light = false,
+  className = '',
+}: SectionLabelProps) {
   return (
-    <div
-      style={{
-        fontSize: '0.68rem',
-        letterSpacing: '0.28em',
-        textTransform: 'uppercase',
-        color: light ? 'rgba(255,240,236,0.85)' : 'var(--color-salmon)',
-        fontWeight: 600,
-        marginBottom: '0.9rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: centered ? 'center' : 'flex-start',
-        gap: '0.8rem',
-      }}
-    >
-      {children}
-      <span
-        style={{
-          width: 45,
-          height: 1,
-          background: light
-            ? 'linear-gradient(to right, rgba(255,240,236,0.6), transparent)'
-            : 'linear-gradient(to right, var(--color-salmon), transparent)',
-          flexShrink: 0,
-        }}
-      />
-    </div>
+    <p className={[styles.label, light ? styles.light : '', className].filter(Boolean).join(' ')}>
+      {index && <span className={styles.index}>{index}</span>}
+      {index && <span className={styles.sep} aria-hidden>—</span>}
+      <span>{label}</span>
+    </p>
   )
 }

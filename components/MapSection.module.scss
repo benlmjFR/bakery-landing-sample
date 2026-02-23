@@ -1,0 +1,121 @@
+// components/MapSection.module.scss
+@import '@/styles/variables';
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+// ── Map ───────────────────────────────────────────────────────
+.mapZone {
+  position: relative;
+  overflow: hidden;
+  background: $cream-dark;
+  min-height: 420px;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  // filtre léger pour coller à l'aesthetic
+  filter: grayscale(25%) contrast(1.05) brightness(1.02);
+  transition: filter $dur-slow $ease-out;
+
+  &:hover { filter: grayscale(0%) contrast(1) brightness(1); }
+}
+
+// Texture quasi invisible pour unifier avec le reste
+.mapOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(247, 245, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 245, 241, 0.03) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+// ── Info ──────────────────────────────────────────────────────
+.info {
+  background: $ink;
+  padding: 72px $section-h;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 44px;
+
+  @include respond-to(xl) { padding: 56px ($section-h * 0.7); }
+  @include respond-to(md) { padding: 48px $section-h-sm; }
+}
+
+.infoTop {}
+
+.infoTitle {
+  font-family: $font-display;
+  font-weight: 300;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 6px;
+}
+
+// ── Blocs ─────────────────────────────────────────────────────
+.infoBlocks {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.block {}
+
+.blockLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  @include mono-label(7px, 0.42em);
+  color: rgba(255, 255, 255, 0.22);
+  margin-bottom: 10px;
+}
+
+.blockValue {
+  font-family: $font-display;
+  font-weight: 300;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.75;
+}
+
+.closed {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 14px;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color $dur-fast $ease-out;
+  &:hover { color: $white; }
+}
+
+// ── CTA ───────────────────────────────────────────────────────
+.infoCta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  // Les boutons ghost sur fond noir héritent la couleur blanche
+  color: $white;
+}

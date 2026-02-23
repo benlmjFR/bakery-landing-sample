@@ -1,0 +1,96 @@
+// components/Hero.module.scss
+@import '@/styles/variables';
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - #{$nav-height});
+  margin-top: $nav-height;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+// ── Left ──────────────────────────────────────────────────────
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px $section-h;
+
+  @include respond-to(xl) { padding: 60px ($section-h * 0.7); }
+  @include respond-to(md) { padding: 48px $section-h-sm; }
+}
+
+.tag {
+  @include mono-label(8px, 0.46em);
+  margin-bottom: 36px;
+}
+
+.title {
+  @include display-title(clamp(52px, 6vw, 82px), 300);
+  line-height: 0.93;
+  margin-bottom: 22px;
+
+  em {
+    display: block;
+    font-style: italic;
+    font-size: clamp(58px, 6.5vw, 88px);
+    color: $grey-mid;
+    font-weight: 300;
+  }
+}
+
+.subtitle {
+  font-family: $font-display;
+  font-size: 19px;
+  font-style: italic;
+  color: #aaa;
+  letter-spacing: 0.04em;
+  margin-bottom: 52px;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+// ── Right ─────────────────────────────────────────────────────
+.right {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(140deg, $cream-dark 0%, $cream-deep 100%);
+  min-height: 540px;
+
+  @include respond-to(lg)  { min-height: 380px; }
+  @include respond-to(md)  { min-height: 280px; }
+}
+
+// Placeholder (retirer quand la photo est là)
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.placeholderFrame {
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.placeholderEmoji { font-size: 52px; opacity: 0.2; }
+
+.placeholderText {
+  @include mono-label(7px, 0.38em);
+  color: rgba(0, 0, 0, 0.2);
+}

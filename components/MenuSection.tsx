@@ -1,40 +1,79 @@
+// components/MenuSection.tsx
 'use client'
-import { motion } from 'framer-motion'
-import { MENU_ITEMS } from '@/lib/constants'
+
+import { useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+import SectionLabel from './SectionLabel'
+import Button from './Button'
+import { PRODUCTS, SECTIONS } from '@/lib/constants'
+import styles from './MenuSection.module.scss'
 
 export default function MenuSection() {
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [hovered, setHovered] = useState<string | null>(null)
+
   return (
-    <section id="menu" style={{ padding:'var(--section-y) var(--section-x)', background:'var(--gradient-dark)', position:'relative', overflow:'hidden' }}>
-      {/* Decorative blob */}
-      <div style={{ position:'absolute', top:-200, right:-200, width:550, height:550, borderRadius:'50%', background:'radial-gradient(circle,rgba(224,123,101,0.13) 0%,transparent 70%)', pointerEvents:'none' }} />
+    <section
+      id={SECTIONS.MENU}
+      className={styles.section}
+      ref={ref}
+    >
+      {/* ── Header ── */}
+      <motion.div
+        className={styles.header}
+        initial={{ opacity: 0, y: 22 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.75, ease: [0.19, 1, 0.22, 1] }}
+      >
+        <div className={styles.headerLeft}>
+          <SectionLabel index="01" label="Notre Carte" />
+          <h2 className={styles.title}>Sélection</h2>
+        </div>
 
-      <motion.p className="section-label section-label--light" initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}>Notre Carte</motion.p>
-      <motion.h2 initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.6 }}
-        style={{ fontFamily:'var(--font-display)', fontSize:'clamp(2rem,3.8vw,3.2rem)', lineHeight:1.15, fontWeight:900, color:'#fff' }}>
-        Des saveurs pour<br /><em style={{ color:'var(--salmon-light)', fontStyle:'italic' }}>tous les plaisirs</em>
-      </motion.h2>
+        <Button
+          href={`#${SECTIONS.CONTACT}`}
+          variant="ghost"
+          size="sm"
+          icon={<ArrowRight size={10} strokeWidth={1.5} />}
+        >
+          Commander
+        </Button>
+      </motion.div>
 
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'1.4rem', marginTop:'3rem' }} className="menu-grid">
-        {MENU_ITEMS.map((item, i) => (
-          <motion.div key={item.title}
-            initial={{ opacity:0, y:30 }}
-            whileInView={{ opacity:1, y:0 }}
-            viewport={{ once:true, margin:'-50px' }}
-            transition={{ delay: i * 0.1, duration:0.6 }}
-            whileHover={{ y:-6, borderColor:'rgba(224,123,101,0.38)', boxShadow:'0 18px 40px rgba(0,0,0,0.28)' }}
-            style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:'var(--radius-md)', padding:'1.8rem', cursor:'default', transition:'var(--transition)' }}>
-            <div style={{ fontSize:'2rem', marginBottom:'1rem' }}>{item.icon}</div>
-            <h3 style={{ fontFamily:'var(--font-display)', fontSize:'1.2rem', fontWeight:700, color:'#fff', marginBottom:'0.7rem' }}>{item.title}</h3>
-            <p style={{ color:'rgba(255,235,230,0.52)', fontSize:'0.85rem', lineHeight:1.75 }}>{item.desc}</p>
-            <p style={{ marginTop:'1.2rem', color:'var(--salmon-light)', fontSize:'0.78rem', fontWeight:600 }}>{item.price}</p>
-          </motion.div>
+      {/* ── Grille produits ── */}
+      <div className={styles.grid}>
+        {PRODUCTS.map((product, i) => (
+          <motion.article
+            key={product.id}
+            className={[
+              styles.card,
+              hovered === product.id ? styles.cardHovered : '',
+            ].join(' ')}
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{
+              duration: 0.65,
+              delay: 0.12 + i * 0.09,
+              ease: [0.19, 1, 0.22, 1],
+            }}
+            onMouseEnter={() => setHovered(product.id)}
+            onMouseLeave={() => setHovered(null)}
+            aria-label={`${product.name} — ${product.price}`}
+          >
+            {/* Tag optionnel */}
+            {product.tag && (
+              <span className={styles.tag}>{product.tag}</span>
+            )}
+
+            <span className={styles.icon} aria-hidden>{product.icon}</span>
+            <h3 className={styles.name}>{product.name}</h3>
+            <p className={styles.desc}>{product.desc}</p>
+            <span className={styles.price}>{product.price}</span>
+          </motion.article>
         ))}
       </div>
-
-      <style>{`
-        @media (max-width:768px) { .menu-grid { grid-template-columns:1fr 1fr !important; } }
-        @media (max-width:480px) { .menu-grid { grid-template-columns:1fr !important; } }
-      `}</style>
     </section>
   )
 }

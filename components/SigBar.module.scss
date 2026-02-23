@@ -1,0 +1,51 @@
+// components/SigBar.module.scss
+@import '@/styles/variables';
+
+.bar {
+  background: $ink;
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+
+  // pause au survol de toute la barre
+  &:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  // tickerScroll défini dans globals.scss
+  animation: tickerScroll linear infinite;
+
+  // sens inversé
+  &.reverse {
+    animation-direction: reverse;
+  }
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  padding-right: 36px;
+}
+
+.word {
+  font-family: $font-display;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.26em;
+  color: rgba(255, 255, 255, 0.38);
+  transition: color $dur-fast $ease-out;
+
+  .bar:hover & {
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+.dot {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.12);
+}

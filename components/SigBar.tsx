@@ -1,21 +1,38 @@
-'use client'
-import { motion } from 'framer-motion'
+// components/SigBar.tsx
+// Bande de mots qui défilent en continu (Ticker/Marquee)
+// Utilisé entre le Hero et la section Menu
 
-const ITEMS = ['Boulangerie Artisanale','Pâtisserie Créative','Café de Spécialité','Pain au Levain','Snacking Maison','Ouvert 7j/7']
+import { WORDING_ITEMS } from '@/lib/constants'
+import styles from './SigBar.module.scss'
 
-export default function SigBar() {
+interface SigBarProps {
+  /** Vitesse de défilement en secondes (durée d'un cycle complet) */
+  speed?: number
+  /** Inverser le sens */
+  reverse?: boolean
+}
+
+export default function SigBar({ speed = 32, reverse = false }: SigBarProps) {
+  // Triple le tableau pour garantir le seamless loop
+  const items = [...WORDING_ITEMS, ...WORDING_ITEMS, ...WORDING_ITEMS]
+
   return (
-    <motion.div
-      initial={{ opacity:0 }}
-      whileInView={{ opacity:1 }}
-      viewport={{ once:true }}
-      style={{ background:'var(--gradient-bar)', padding:'1rem 2rem', display:'flex', justifyContent:'center', gap:'3rem', overflowX:'auto', flexWrap:'nowrap' }}>
-      {ITEMS.map(item => (
-        <span key={item} style={{ color:'rgba(255,245,243,0.88)', fontSize:'0.7rem', letterSpacing:'0.18em', textTransform:'uppercase', whiteSpace:'nowrap', display:'flex', alignItems:'center', gap:'0.5rem', fontWeight:500 }}>
-          <span style={{ color:'rgba(255,245,243,0.55)', fontSize:'0.52rem' }}>✦</span>
-          {item}
-        </span>
-      ))}
-    </motion.div>
+    <div
+      className={styles.bar}
+      aria-hidden="true"
+      role="presentation"
+    >
+      <div
+        className={[styles.track, reverse ? styles.reverse : ''].join(' ')}
+        style={{ animationDuration: `${speed}s` }}
+      >
+        {items.map((word, i) => (
+          <span key={i} className={styles.item}>
+            <span className={styles.word}>{word}</span>
+            <span className={styles.dot} aria-hidden>·</span>
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }

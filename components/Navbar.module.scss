@@ -1,0 +1,151 @@
+// components/Navbar.module.scss
+@import '@/styles/variables';
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  background: rgba(247, 245, 241, 0.88);
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(18px);
+  transition:
+    background     $dur-mid $ease-out,
+    border-color   $dur-mid $ease-out,
+    box-shadow     $dur-mid $ease-out;
+
+  &.scrolled {
+    background: rgba(247, 245, 241, 0.97);
+    border-bottom-color: rgba(0, 0, 0, 0.055);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $section-h;
+  height: $nav-height;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @include respond-to(md) { padding: 0 $section-h-sm; }
+}
+
+// ── Logo ──────────────────────────────────────────────────────
+.logo {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.logoName {
+  @include display-title(21px, 300);
+  letter-spacing: 0.28em;
+  color: $ink;
+  transition: color $dur-fast $ease-out;
+
+  .logo:hover & { color: $grey-mid; }
+}
+
+.logoSub {
+  @include mono-label(7px, 0.5em);
+  display: block;
+  color: $grey-light;
+}
+
+// ── Nav links ─────────────────────────────────────────────────
+.links {
+  @include respond-to(lg) { display: none; }
+
+  ul { display: flex; gap: 36px; list-style: none; }
+}
+
+.link {
+  @include mono-label(8px, 0.18em);
+  color: $grey-mid;
+  text-decoration: none;
+  transition: color $dur-fast $ease-out;
+  position: relative;
+  padding-bottom: 2px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 1px;
+    background: $ink;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $dur-mid $ease-expo;
+  }
+
+  &:hover {
+    color: $ink;
+    &::after { transform: scaleX(1); }
+  }
+}
+
+// ── Right ─────────────────────────────────────────────────────
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lang { display: flex; align-items: center; gap: 6px; }
+.langItem { display: flex; align-items: center; gap: 6px; }
+
+.langBtn {
+  @include mono-label(8px, 0.14em);
+  color: $grey-light;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color $dur-fast $ease-out;
+  &:hover { color: $ink; }
+}
+
+.langOn { color: $ink !important; }
+
+.langSep {
+  @include mono-label(7px, 0);
+  color: #ddd;
+}
+
+// ── Burger ────────────────────────────────────────────────────
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $ink;
+  padding: 4px;
+  transition: opacity $dur-fast $ease-out;
+  &:hover { opacity: 0.45; }
+
+  @include respond-to(lg) { display: flex; }
+}
+
+// ── Mobile menu ───────────────────────────────────────────────
+.mobileMenu {
+  overflow: hidden;
+  background: rgba(247, 245, 241, 0.99);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+  ul { list-style: none; padding: 6px $section-h-sm 18px; }
+
+  li a {
+    display: block;
+    padding: 14px 0;
+    @include mono-label(10px, 0.2em);
+    color: $grey-mid;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    transition: color $dur-fast $ease-out;
+    &:hover { color: $ink; }
+  }
+}

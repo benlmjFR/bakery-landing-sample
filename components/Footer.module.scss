@@ -1,0 +1,49 @@
+// components/Footer.module.scss
+@import '@/styles/variables';
+
+.footer {
+  background: $ink;
+  padding: 18px $section-h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+
+  @include respond-to(md) { padding: 16px $section-h-sm; }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.copy,
+.made {
+  @include mono-label(7px, 0.2em);
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.sep {
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 8px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.socialLink {
+  color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  transition: color $dur-fast $ease-out;
+  &:hover { color: rgba(255, 255, 255, 0.65); }
+}
+
+.tiktok {
+  @include mono-label(7px, 0.08em);
+  color: inherit;
+}
