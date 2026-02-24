@@ -1,11 +1,8 @@
-// lib/constants.ts
-
-export const SECTIONS = {
-  HERO:      'hero',
+export const SECTIONS = {  
+  ABOUT:     'about',
   WORDING:   'wording',
   MENU:      'menu',
   GALLERY:   'gallery',
-  ABOUT:     'about',
   BOUTIQUES: 'boutiques',
   CONTACT:   'contact',
 } as const
@@ -13,9 +10,10 @@ export const SECTIONS = {
 export type SectionId = (typeof SECTIONS)[keyof typeof SECTIONS]
 
 // ⚠ Modifiez avec votre email réel
-export const CONTACT_EMAIL = 'saime@gmail.com'
+export const CONTACT_EMAIL = 'myungjae84@gmail.com'
 
 export const NAV_LINK_KEYS = [
+  { key: 'nav.about',     href: '#about' },
   { key: 'nav.menu',      href: '#menu' },
   { key: 'nav.gallery',   href: '#gallery' },
   { key: 'nav.boutiques', href: '#boutiques' },

@@ -24,7 +24,7 @@ export default function Hero() {
 
   return (
     <section
-      id={SECTIONS.HERO}
+      id={SECTIONS.ABOUT}
       className={styles.hero}
       aria-label="Accueil SAIME Boulangerie"
     >
@@ -63,10 +63,18 @@ export default function Hero() {
         */}
         <div className={styles.placeholder}>
           <span className={styles.placeholderFrame} aria-hidden />
-          <span className={styles.placeholderEmoji} aria-hidden>
-            🍞
+
+          <span className={styles.placeholderText}>
+            <br />​ Chez nous, la gourmandise passe par les grands classiques de
+            la boulangerie et de la pâtisserie françaises, mais aussi par nos
+            créations originales autour de nouvelles saveurs et textures.
+            <br />
+            <br />​
+            <br />​ Echanger, essayer, goûter... c’est le quotidien de la team !
+            Créatifs et enthousiastes, nous travaillons tous les jours sur
+            l&apos;élaboration de nouvelles recettes pour le plus grand bonheur
+            de vos papilles.
           </span>
-          <span className={styles.placeholderText}>Photo produit hero</span>
         </div>
       </motion.div>
     </section>

@@ -43,14 +43,6 @@ export default function MenuSection({ onGalleryFilter }: MenuSectionProps) {
           />
           <h2 className={styles.title}>{t("menu.sectionTitle")}</h2>
         </div>
-        <Button
-          href={`#${SECTIONS.CONTACT}`}
-          variant="ghost"
-          size="sm"
-          icon={<ArrowRight size={10} strokeWidth={1.5} />}
-        >
-          {t("menu.ctaOrder")}
-        </Button>
       </motion.div>
 
       <div className={styles.grid}>

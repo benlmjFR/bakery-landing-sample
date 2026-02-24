@@ -1,8 +1,8 @@
-// lib/i18n/en.ts
 import type { Translations } from './fr'
 
 const en: Translations = {
   nav: {
+    about:     'About us',
     menu:      'Our Menu',
     gallery:   'Gallery',
     boutiques: 'Boutiques',

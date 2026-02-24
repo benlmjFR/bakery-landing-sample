@@ -11,6 +11,14 @@
   }
 }
 
+.reverse {
+  direction: rtl;
+
+  > * {
+    direction: ltr;
+  }
+}
+
 // ── Map ───────────────────────────────────────────────────────
 .mapZone {
   position: relative;
@@ -26,7 +34,6 @@
   height: 100%;
   border: none;
   display: block;
-  // filtre léger pour coller à l'aesthetic
   filter: grayscale(25%) contrast(1.05) brightness(1.02);
   transition: filter $dur-slow $ease-out;
 
@@ -35,7 +42,6 @@
   }
 }
 
-// Texture quasi invisible pour unifier avec le reste
 .mapOverlay {
   position: absolute;
   inset: 0;
@@ -84,7 +90,7 @@
   align-items: center;
   gap: 7px;
   @include mono-label(7px, 0.42em);
-  color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.904);
   margin-bottom: 10px;
 }
 
@@ -98,7 +104,7 @@
 
 .closed {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.629);
   font-size: 14px;
 }
 

@@ -5,86 +5,96 @@ import { motion, useInView } from "framer-motion";
 import { MapPin, Clock, Mail, Phone, Instagram } from "lucide-react";
 import SectionLabel from "./SectionLabel";
 import Button from "./Button";
-import { BOUTIQUES, SOCIAL, SECTIONS } from "@/lib/constants";
-import { useI18n } from "@/lib/i18n";
 import styles from "./MapSection.module.scss";
+import { LocationData } from "@/types/types";
+import { SECTIONS } from "@/lib/constants";
 
-export default function MapSection() {
+type MapSectionProps = {
+  id: string;
+  location: LocationData;
+  reverse?: boolean;
+};
+
+export default function MapSection({
+  id,
+  location,
+  reverse = false,
+}: MapSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const { t } = useI18n();
-  const shop = BOUTIQUES[0];
 
   return (
-    <section id={SECTIONS.BOUTIQUES} className={styles.section} ref={ref}>
+    <section
+      id={SECTIONS.BOUTIQUES}
+      ref={ref}
+      className={`${styles.section} ${reverse ? styles.reverse : ""}`}
+    >
+      {/* ── MAP ── */}
       <div className={styles.mapZone}>
         <iframe
           className={styles.map}
-          src={shop.mapEmbedUrl}
+          src={location.mapEmbedUrl}
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
-          title={`${t(shop.nameKey)} — Google Maps`}
-          aria-label={`Carte — ${shop.address}, ${shop.city}`}
+          title={`${location.name} — Localisation`}
         />
         <div className={styles.mapOverlay} aria-hidden />
       </div>
 
+      {/* ── INFOS ── */}
       <motion.div
-        id={SECTIONS.CONTACT}
         className={styles.info}
-        initial={{ opacity: 0, x: 32 }}
+        initial={{ opacity: 0, x: reverse ? -32 : 32 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
       >
         <div className={styles.infoTop}>
-          <SectionLabel
-            index="03"
-            label={t("boutiques.sectionLabel").replace("03 — ", "")}
-            light
-          />
-          <h2 className={styles.infoTitle}>{t(shop.nameKey)}</h2>
+          <SectionLabel index="03" label="Nous trouver" light />
+          <h2 className={styles.infoTitle}>{location.name}</h2>
         </div>
 
         <div className={styles.infoBlocks}>
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <MapPin size={9} strokeWidth={1.5} aria-hidden />
-              {t("boutiques.address")}
+              <MapPin size={9} />
+              Adresse
             </span>
             <p className={styles.blockValue}>
-              {shop.address}
+              {location.address}
               <br />
-              {shop.zip} {shop.city}
+              {location.zip} {location.city}
             </p>
           </div>
+
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Clock size={9} strokeWidth={1.5} aria-hidden />
-              {t("boutiques.hours")}
+              <Clock size={9} />
+              Horaires
             </span>
             <p className={styles.blockValue}>
-              {t(shop.hoursKey)}
+              {location.hours}
               <br />
-              <span className={styles.closed}>{t(shop.closedKey)}</span>
+              <span className={styles.closed}>{location.closedDay}</span>
             </p>
           </div>
+
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Mail size={9} strokeWidth={1.5} aria-hidden />
-              {t("boutiques.contact")}
+              <Mail size={9} />
+              Contact
             </span>
             <p className={styles.blockValue}>
-              <a href={`mailto:${shop.email}`} className={styles.link}>
-                {shop.email}
+              <a href={`mailto:${location.email}`} className={styles.link}>
+                {location.email}
               </a>
               <br />
               <a
-                href={`tel:${shop.phone.replace(/\s/g, "")}`}
+                href={`tel:${location.phone.replace(/\s/g, "")}`}
                 className={styles.link}
               >
-                <Phone size={9} strokeWidth={1.5} aria-hidden />
-                {shop.phone}
+                <Phone size={9} />
+                {location.phone}
               </a>
             </p>
           </div>
@@ -92,22 +102,21 @@ export default function MapSection() {
 
         <div className={styles.infoCta}>
           <Button
-            href={`https://maps.google.com/?q=${shop.address},${shop.city}`}
+            href={`https://maps.google.com/?q=${location.address},${location.city}`}
             variant="white"
             size="md"
             external
           >
-            {t("boutiques.itinerary")}
+            Itinéraire
           </Button>
           <Button
-            href={SOCIAL.instagram}
+            href="https://instagram.com"
             variant="ghost"
             size="md"
             external
-            icon={<Instagram size={11} strokeWidth={1.5} />}
-            iconPos="left"
+            icon={<Instagram size={11} />}
           >
-            {t("boutiques.instagram")}
+            Instagram
           </Button>
         </div>
       </motion.div>

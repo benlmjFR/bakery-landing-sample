@@ -1,6 +1,6 @@
-// lib/i18n/fr.ts
 const fr = {
   nav: {
+    about:     'A propos de nous',
     menu:      'Notre Carte',
     gallery:   'Galerie',
     boutiques: 'Boutiques',

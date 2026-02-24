@@ -34,7 +34,6 @@ export default function Footer() {
           className={styles.socialLink}
           aria-label="SAIME sur TikTok"
         >
-          {/* Lucide n'a pas d'icône TikTok — on utilise du texte mono */}
           <span className={styles.tiktok}>TT</span>
         </a>
       </div>
