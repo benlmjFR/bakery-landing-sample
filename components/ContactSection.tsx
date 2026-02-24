@@ -1,96 +1,101 @@
-// components/ContactSection.tsx
-'use client'
+"use client";
 
-import { useRef, useState, type FormEvent, type ChangeEvent } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Send, CheckCircle, AlertCircle } from 'lucide-react'
-import SectionLabel from './SectionLabel'
-import Button from './Button'
-import { useI18n } from '@/lib/i18n'
-import { SECTIONS, CONTACT_EMAIL } from '@/lib/constants'
-import styles from './ContactSection.module.scss'
+import { useRef, useState, type FormEvent, type ChangeEvent } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import SectionLabel from "./SectionLabel";
+import Button from "./Button";
+import { useI18n } from "@/lib/i18n";
+import { SECTIONS, CONTACT_EMAIL } from "@/lib/constants";
+import styles from "./ContactSection.module.scss";
 
 // ── Types ────────────────────────────────────────────────────
 interface FormState {
-  name:    string
-  email:   string
-  subject: string
-  message: string
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 }
 
 interface FormErrors {
-  name?:    string
-  email?:   string
-  subject?: string
-  message?: string
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
 }
 
-type Status = 'idle' | 'sending' | 'success' | 'error'
+type Status = "idle" | "sending" | "success" | "error";
 
-const INITIAL_FORM: FormState = { name: '', email: '', subject: '', message: '' }
+const INITIAL_FORM: FormState = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
 
 // ── Composant ────────────────────────────────────────────────
 export default function ContactSection() {
-  const ref    = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  const { t }  = useI18n()
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { t } = useI18n();
 
-  const [form,   setForm]   = useState<FormState>(INITIAL_FORM)
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [status, setStatus] = useState<Status>('idle')
+  const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [status, setStatus] = useState<Status>("idle");
 
   // ── Validation ────────────────────────────────────────────
   function validate(f: FormState): FormErrors {
-    const e: FormErrors = {}
+    const e: FormErrors = {};
     if (!f.name.trim() || f.name.trim().length < 2)
-      e.name = t('contact.required')
+      e.name = t("contact.required");
     if (!f.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email))
-      e.email = t('contact.emailInvalid')
+      e.email = t("contact.emailInvalid");
     if (!f.subject.trim() || f.subject.trim().length < 2)
-      e.subject = t('contact.required')
+      e.subject = t("contact.required");
     if (!f.message.trim() || f.message.trim().length < 10)
-      e.message = t('contact.required')
-    return e
+      e.message = t("contact.required");
+    return e;
   }
 
-  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
     // Efface l'erreur dès que l'utilisateur commence à corriger
     if (errors[name as keyof FormErrors]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }))
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   }
 
   // ── Submit ────────────────────────────────────────────────
   async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    const errs = validate(form)
+    e.preventDefault();
+    const errs = validate(form);
     if (Object.keys(errs).length > 0) {
-      setErrors(errs)
-      return
+      setErrors(errs);
+      return;
     }
 
-    setStatus('sending')
+    setStatus("sending");
     try {
-      const res = await fetch('/api/contact', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error('Server error')
-      setStatus('success')
-      setForm(INITIAL_FORM)
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Server error");
+      setStatus("success");
+      setForm(INITIAL_FORM);
     } catch {
-      setStatus('error')
+      setStatus("error");
     }
   }
 
-  const isSending = status === 'sending'
+  const isSending = status === "sending";
 
   return (
     <section id={SECTIONS.CONTACT} className={styles.section} ref={ref}>
-
       {/* ── LEFT — texte ── */}
       <motion.div
         className={styles.left}
@@ -98,9 +103,12 @@ export default function ContactSection() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.75, ease: [0.19, 1, 0.22, 1] }}
       >
-        <SectionLabel index="04" label={t('contact.sectionLabel').replace('04 — ', '')} />
-        <h2 className={styles.title}>{t('contact.sectionTitle')}</h2>
-        <p className={styles.subtitle}>{t('contact.subtitle')}</p>
+        <SectionLabel
+          index="04"
+          label={t("contact.sectionLabel").replace("04 — ", "")}
+        />
+        <h2 className={styles.title}>{t("contact.sectionTitle")}</h2>
+        <p className={styles.subtitle}>{t("contact.subtitle")}</p>
 
         <div className={styles.directContact}>
           <a href={`mailto:${CONTACT_EMAIL}`} className={styles.emailLink}>
@@ -117,9 +125,8 @@ export default function ContactSection() {
         transition={{ duration: 0.75, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
       >
         <AnimatePresence mode="wait">
-
           {/* Succès */}
-          {status === 'success' && (
+          {status === "success" && (
             <motion.div
               key="success"
               className={styles.feedback}
@@ -128,11 +135,15 @@ export default function ContactSection() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <CheckCircle size={28} strokeWidth={1.2} className={styles.feedbackIcon} />
-              <p>{t('contact.success')}</p>
+              <CheckCircle
+                size={28}
+                strokeWidth={1.2}
+                className={styles.feedbackIcon}
+              />
+              <p>{t("contact.success")}</p>
               <button
                 className={styles.resetBtn}
-                onClick={() => setStatus('idle')}
+                onClick={() => setStatus("idle")}
               >
                 Nouveau message
               </button>
@@ -140,7 +151,7 @@ export default function ContactSection() {
           )}
 
           {/* Erreur serveur */}
-          {status === 'error' && (
+          {status === "error" && (
             <motion.div
               key="error"
               className={`${styles.feedback} ${styles.feedbackError}`}
@@ -148,19 +159,26 @@ export default function ContactSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
             >
-              <AlertCircle size={28} strokeWidth={1.2} className={styles.feedbackIcon} />
-              <p>{t('contact.error')}</p>
+              <AlertCircle
+                size={28}
+                strokeWidth={1.2}
+                className={styles.feedbackIcon}
+              />
+              <p>{t("contact.error")}</p>
               <a href={`mailto:${CONTACT_EMAIL}`} className={styles.resetBtn}>
                 {CONTACT_EMAIL}
               </a>
-              <button className={styles.resetBtn} onClick={() => setStatus('idle')}>
+              <button
+                className={styles.resetBtn}
+                onClick={() => setStatus("idle")}
+              >
                 Réessayer
               </button>
             </motion.div>
           )}
 
           {/* Formulaire */}
-          {(status === 'idle' || status === 'sending') && (
+          {(status === "idle" || status === "sending") && (
             <motion.form
               key="form"
               className={styles.form}
@@ -172,20 +190,20 @@ export default function ContactSection() {
               {/* Rangée nom + email */}
               <div className={styles.row}>
                 <Field
-                  label={t('contact.name')}
+                  label={t("contact.name")}
                   name="name"
                   type="text"
-                  placeholder={t('contact.namePlaceholder')}
+                  placeholder={t("contact.namePlaceholder")}
                   value={form.name}
                   error={errors.name}
                   onChange={handleChange}
                   disabled={isSending}
                 />
                 <Field
-                  label={t('contact.email')}
+                  label={t("contact.email")}
                   name="email"
                   type="email"
-                  placeholder={t('contact.emailPlaceholder')}
+                  placeholder={t("contact.emailPlaceholder")}
                   value={form.email}
                   error={errors.email}
                   onChange={handleChange}
@@ -195,10 +213,10 @@ export default function ContactSection() {
 
               {/* Sujet */}
               <Field
-                label={t('contact.subject')}
+                label={t("contact.subject")}
                 name="subject"
                 type="text"
-                placeholder={t('contact.subjectPlaceholder')}
+                placeholder={t("contact.subjectPlaceholder")}
                 value={form.subject}
                 error={errors.subject}
                 onChange={handleChange}
@@ -207,10 +225,10 @@ export default function ContactSection() {
 
               {/* Message */}
               <Field
-                label={t('contact.message')}
+                label={t("contact.message")}
                 name="message"
                 type="textarea"
-                placeholder={t('contact.messagePlaceholder')}
+                placeholder={t("contact.messagePlaceholder")}
                 value={form.message}
                 error={errors.message}
                 onChange={handleChange}
@@ -225,37 +243,49 @@ export default function ContactSection() {
                   icon={<Send size={11} strokeWidth={1.5} />}
                   iconPos="right"
                 >
-                  {isSending ? t('contact.sending') : t('contact.send')}
+                  {isSending ? t("contact.sending") : t("contact.send")}
                 </Button>
               </div>
             </motion.form>
           )}
         </AnimatePresence>
       </motion.div>
-
     </section>
-  )
+  );
 }
 
 // ── Sous-composant Field ─────────────────────────────────────
 interface FieldProps {
-  label:       string
-  name:        string
-  type:        'text' | 'email' | 'textarea'
-  placeholder: string
-  value:       string
-  error?:      string
-  onChange:    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  disabled?:   boolean
+  label: string;
+  name: string;
+  type: "text" | "email" | "textarea";
+  placeholder: string;
+  value: string;
+  error?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  disabled?: boolean;
 }
 
-function Field({ label, name, type, placeholder, value, error, onChange, disabled }: FieldProps) {
-  const inputCls = [styles.input, error ? styles.inputError : ''].filter(Boolean).join(' ')
+function Field({
+  label,
+  name,
+  type,
+  placeholder,
+  value,
+  error,
+  onChange,
+  disabled,
+}: FieldProps) {
+  const inputCls = [styles.input, error ? styles.inputError : ""]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={styles.field}>
-      <label className={styles.label} htmlFor={name}>{label}</label>
-      {type === 'textarea' ? (
+      <label className={styles.label} htmlFor={name}>
+        {label}
+      </label>
+      {type === "textarea" ? (
         <textarea
           id={name}
           name={name}
@@ -276,7 +306,7 @@ function Field({ label, name, type, placeholder, value, error, onChange, disable
           value={value}
           onChange={onChange}
           disabled={disabled}
-          autoComplete={name === 'email' ? 'email' : 'off'}
+          autoComplete={name === "email" ? "email" : "off"}
         />
       )}
       <AnimatePresence>
@@ -293,5 +323,5 @@ function Field({ label, name, type, placeholder, value, error, onChange, disable
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

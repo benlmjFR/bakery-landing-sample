@@ -1,16 +1,19 @@
-// components/Footer.tsx
-import { Instagram } from 'lucide-react'
-import { SOCIAL, SITE_META } from '@/lib/constants'
-import styles from './Footer.module.scss'
+import { Instagram } from "lucide-react";
+import { SOCIAL, SITE_META } from "@/lib/constants";
+import styles from "./Footer.module.scss";
 
 export default function Footer() {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
     <footer className={styles.footer}>
       <div className={styles.left}>
-        <span className={styles.copy}>© {year} {SITE_META.name}</span>
-        <span className={styles.sep} aria-hidden>·</span>
+        <span className={styles.copy}>
+          © {year} {SITE_META.name}
+        </span>
+        <span className={styles.sep} aria-hidden>
+          ·
+        </span>
         <span className={styles.made}>Paris 11e</span>
       </div>
 
@@ -36,5 +39,5 @@ export default function Footer() {
         </a>
       </div>
     </footer>
-  )
+  );
 }

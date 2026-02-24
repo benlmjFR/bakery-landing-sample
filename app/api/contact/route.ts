@@ -1,4 +1,3 @@
-// app/api/contact/route.ts
 // ─────────────────────────────────────────────────────────────
 // Route API Next.js — envoi du formulaire de contact
 //

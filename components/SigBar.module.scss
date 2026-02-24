@@ -1,9 +1,17 @@
-// components/SigBar.module.scss
-@import '@/styles/variables';
+@import "@/styles/variables";
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
 
 .bar {
   background: $ink;
-  padding: 14px 0;
+  padding: 24px 0;
   overflow: hidden;
   white-space: nowrap;
 
@@ -16,7 +24,6 @@
 .track {
   display: inline-flex;
   align-items: center;
-  // tickerScroll défini dans globals.scss
   animation: tickerScroll linear infinite;
 
   // sens inversé
@@ -35,7 +42,7 @@
 .word {
   font-family: $font-display;
   font-style: italic;
-  font-size: 15px;
+  font-size: 24px;
   letter-spacing: 0.26em;
   color: rgba(255, 255, 255, 0.38);
   transition: color $dur-fast $ease-out;

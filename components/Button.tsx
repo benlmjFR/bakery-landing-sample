@@ -1,57 +1,62 @@
-// components/Button.tsx
-'use client'
+"use client";
 
-import Link from 'next/link'
-import styles from './Button.module.scss'
+import Link from "next/link";
+import styles from "./Button.module.scss";
 
 // ── Types ────────────────────────────────────────────────────
-type Variant = 'black' | 'white' | 'ghost'
-type Size    = 'sm' | 'md' | 'lg'
+type Variant = "black" | "white" | "ghost";
+type Size = "sm" | "md" | "lg";
 
 interface ButtonProps {
-  variant?:  Variant
-  size?:     Size
-  href?:     string
-  external?: boolean
-  onClick?:  () => void
-  disabled?: boolean
-  children:  React.ReactNode
-  className?: string
-  icon?:     React.ReactNode       // icône optionnelle (ex: lucide)
-  iconPos?:  'left' | 'right'
-  fullWidth?: boolean
+  variant?: Variant;
+  size?: Size;
+  href?: string;
+  external?: boolean;
+  onClick?: () => void;
+  disabled?: boolean;
+  children: React.ReactNode;
+  className?: string;
+  icon?: React.ReactNode; // icône optionnelle (ex: lucide)
+  iconPos?: "left" | "right";
+  fullWidth?: boolean;
 }
 
 // ── Composant ────────────────────────────────────────────────
 export default function Button({
-  variant  = 'black',
-  size     = 'md',
+  variant = "black",
+  size = "md",
   href,
   external = false,
   onClick,
   disabled = false,
   children,
-  className = '',
+  className = "",
   icon,
-  iconPos = 'right',
+  iconPos = "right",
   fullWidth = false,
 }: ButtonProps) {
   const cls = [
     styles.btn,
     styles[variant],
     styles[size],
-    fullWidth ? styles.full : '',
-    disabled  ? styles.disabled : '',
+    fullWidth ? styles.full : "",
+    disabled ? styles.disabled : "",
     className,
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const inner = (
     <>
-      {icon && iconPos === 'left'  && <span className={styles.icon}>{icon}</span>}
+      {icon && iconPos === "left" && (
+        <span className={styles.icon}>{icon}</span>
+      )}
       <span className={styles.label}>{children}</span>
-      {icon && iconPos === 'right' && <span className={styles.icon}>{icon}</span>}
+      {icon && iconPos === "right" && (
+        <span className={styles.icon}>{icon}</span>
+      )}
     </>
-  )
+  );
 
   // Lien externe
   if (href && external) {
@@ -59,7 +64,7 @@ export default function Button({
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
         {inner}
       </a>
-    )
+    );
   }
 
   // Lien interne Next.js
@@ -68,7 +73,7 @@ export default function Button({
       <Link href={href} className={cls}>
         {inner}
       </Link>
-    )
+    );
   }
 
   // Bouton classique
@@ -76,5 +81,5 @@ export default function Button({
     <button onClick={onClick} disabled={disabled} className={cls} type="button">
       {inner}
     </button>
-  )
+  );
 }

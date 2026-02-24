@@ -1,33 +1,31 @@
-// components/Navbar.tsx
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { NAV_LINK_KEYS, LOCALES, type Locale } from '@/lib/constants'
-import { useI18n } from '@/lib/i18n'
-import styles from './Navbar.module.scss'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { NAV_LINK_KEYS, LOCALES, type Locale } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n";
+import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
-  const { locale, setLocale, t } = useI18n()
-  const [scrolled, setScrolled]  = useState(false)
-  const [menuOpen, setMenuOpen]  = useState(false)
+  const { locale, setLocale, t } = useI18n();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', fn, { passive: true })
-    return () => window.removeEventListener('scroll', fn)
-  }, [])
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
 
   return (
     <motion.header
-      className={[styles.nav, scrolled ? styles.scrolled : ''].join(' ')}
+      className={[styles.nav, scrolled ? styles.scrolled : ""].join(" ")}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
     >
       <div className={styles.inner}>
-
         <a href="#" className={styles.logo} aria-label="SAIME — Accueil">
           <span className={styles.logoName}>SAIME</span>
           <small className={styles.logoSub}>BOULANGERIE · PARIS</small>
@@ -37,7 +35,9 @@ export default function Navbar() {
           <ul>
             {NAV_LINK_KEYS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className={styles.link}>{t(l.key)}</a>
+                <a href={l.href} className={styles.link}>
+                  {t(l.key)}
+                </a>
               </li>
             ))}
           </ul>
@@ -48,7 +48,10 @@ export default function Navbar() {
             {LOCALES.map((l, i) => (
               <span key={l} className={styles.langItem}>
                 <button
-                  className={[styles.langBtn, locale === l ? styles.langOn : ''].join(' ')}
+                  className={[
+                    styles.langBtn,
+                    locale === l ? styles.langOn : "",
+                  ].join(" ")}
                   onClick={() => setLocale(l)}
                   aria-pressed={locale === l}
                   aria-label={`Changer la langue en ${l.toUpperCase()}`}
@@ -56,7 +59,9 @@ export default function Navbar() {
                   {l.toUpperCase()}
                 </button>
                 {i < LOCALES.length - 1 && (
-                  <span className={styles.langSep} aria-hidden>/</span>
+                  <span className={styles.langSep} aria-hidden>
+                    /
+                  </span>
                 )}
               </span>
             ))}
@@ -66,7 +71,7 @@ export default function Navbar() {
             className={styles.burger}
             onClick={() => setMenuOpen((v) => !v)}
             aria-expanded={menuOpen}
-            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
             {menuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
@@ -78,7 +83,7 @@ export default function Navbar() {
           <motion.div
             className={styles.mobileMenu}
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
@@ -100,5 +105,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
-  )
+  );
 }
