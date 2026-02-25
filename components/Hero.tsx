@@ -56,11 +56,6 @@ export default function Hero() {
       </div>
 
       <motion.div className={styles.right} {...scaleIn}>
-        {/*
-          Remplacer par :
-          <Image src="/images/hero.jpg" alt="Pain artisanal SAIME"
-            fill priority sizes="50vw" style={{ objectFit: 'cover' }} />
-        */}
         <div className={styles.placeholder}>
           <span className={styles.placeholderFrame} aria-hidden />
 

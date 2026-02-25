@@ -88,7 +88,6 @@
   }
 }
 
-// Placeholder (retirer quand la photo est là)
 .placeholder {
   position: absolute;
   inset: 0;
@@ -117,4 +116,13 @@
   padding: 50px;
   z-index: 2;
   position: relative;
+
+  @include respond-to(lg) {
+    @include mono-label(14px, 0.38em);
+    color: rgba(0, 0, 0, 0.7);
+  }
+  @include respond-to(md) {
+    @include mono-label(8px, 0.38em);
+    color: rgba(0, 0, 0, 0.7);
+  }
 }
