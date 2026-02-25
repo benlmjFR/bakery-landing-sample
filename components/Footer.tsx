@@ -1,4 +1,4 @@
-import { Instagram } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 import { SOCIAL, SITE_META } from "@/lib/constants";
 import styles from "./Footer.module.scss";
 
@@ -26,6 +26,15 @@ export default function Footer() {
           aria-label="SAIME sur Instagram"
         >
           <Instagram size={13} strokeWidth={1.5} />
+        </a>
+        <a
+          href={SOCIAL.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+          aria-label="SAIME sur LinkedIn"
+        >
+          <Linkedin size={13} strokeWidth={1.5} />
         </a>
         <a
           href={SOCIAL.tiktok}

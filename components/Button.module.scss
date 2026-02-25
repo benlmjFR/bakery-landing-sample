@@ -45,12 +45,12 @@
 // ── Variante BLACK ────────────────────────────────────────────
 .black {
   background: $ink;
-  color: $white;
   border-color: $ink;
 
   &:hover:not(.disabled) {
     background: $ink-soft;
     border-color: $ink-soft;
+    color: $white;
   }
   &:active:not(.disabled) {
     background: #000;
@@ -76,7 +76,7 @@
 // Transparent avec bordure, s'adapte au fond (clair ou sombre)
 .ghost {
   background: transparent;
-  color: currentColor;
+  color: $ink-soft;
   border-color: 0.25;
 
   &:hover:not(.disabled) {

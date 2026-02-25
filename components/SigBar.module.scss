@@ -15,6 +15,13 @@
   overflow: hidden;
   white-space: nowrap;
 
+  @include respond-to(lg) {
+    padding: 14px 0;
+  }
+  @include respond-to(md) {
+    padding: 10px 0;
+  }
+
   // pause au survol de toute la barre
   &:hover .track {
     animation-play-state: paused;
@@ -37,6 +44,10 @@
   align-items: center;
   gap: 36px;
   padding-right: 36px;
+
+  @include respond-to(lg) {
+    gap: 16px;
+  }
 }
 
 .word {
@@ -44,11 +55,18 @@
   font-style: italic;
   font-size: 24px;
   letter-spacing: 0.26em;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgb(134, 103, 26);
   transition: color $dur-fast $ease-out;
 
+  @include respond-to(lg) {
+    font-size: 14px;
+  }
+  @include respond-to(md) {
+    font-size: 12px;
+  }
+
   .bar:hover & {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(105, 53, 1, 0.55);
   }
 }
 

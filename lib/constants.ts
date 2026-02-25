@@ -108,8 +108,11 @@ export const BOUTIQUES: Boutique[] = [
 
 export const SOCIAL = {
   instagram: 'https://www.instagram.com/',
+  linkedin : "https://www.linkedin.com/",
   tiktok: 'https://www.tiktok.com/',
 } as const
+
+
 
 export const SITE_META = {
   name: 'SAIME Boulangerie',

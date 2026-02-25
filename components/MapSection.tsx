@@ -43,83 +43,85 @@ export default function MapSection({
       </div>
 
       {/* ── INFOS ── */}
-      <motion.div
-        className={styles.info}
-        initial={{ opacity: 0, x: reverse ? -32 : 32 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
-      >
-        <div className={styles.infoTop}>
-          <SectionLabel index="03" label="Nous trouver" light />
-          <h2 className={styles.infoTitle}>{location.name}</h2>
-        </div>
-
-        <div className={styles.infoBlocks}>
-          <div className={styles.block}>
-            <span className={styles.blockLabel}>
-              <MapPin size={9} />
-              Adresse
-            </span>
-            <p className={styles.blockValue}>
-              {location.address}
-              <br />
-              {location.zip} {location.city}
-            </p>
+      <div className={styles.infoWrapper}>
+        <motion.div
+          className={styles.info}
+          initial={{ opacity: 0, x: reverse ? -32 : 32 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+        >
+          <div className={styles.infoTop}>
+            <SectionLabel index="03" label="Nous trouver" light />
+            <h2 className={styles.infoTitle}>{location.name}</h2>
           </div>
 
-          <div className={styles.block}>
-            <span className={styles.blockLabel}>
-              <Clock size={9} />
-              Horaires
-            </span>
-            <p className={styles.blockValue}>
-              {location.hours}
-              <br />
-              <span className={styles.closed}>{location.closedDay}</span>
-            </p>
+          <div className={styles.infoBlocks}>
+            <div className={styles.block}>
+              <span className={styles.blockLabel}>
+                <MapPin size={9} />
+                Adresse
+              </span>
+              <p className={styles.blockValue}>
+                {location.address}
+                <br />
+                {location.zip} {location.city}
+              </p>
+            </div>
+
+            <div className={styles.block}>
+              <span className={styles.blockLabel}>
+                <Clock size={9} />
+                Horaires
+              </span>
+              <p className={styles.blockValue}>
+                {location.hours}
+                <br />
+                <span className={styles.closed}>{location.closedDay}</span>
+              </p>
+            </div>
+
+            <div className={styles.block}>
+              <span className={styles.blockLabel}>
+                <Mail size={9} />
+                Contact
+              </span>
+              <p className={styles.blockValue}>
+                <a href={`mailto:${location.email}`} className={styles.link}>
+                  {location.email}
+                </a>
+                <br />
+                <a
+                  href={`tel:${location.phone.replace(/\s/g, "")}`}
+                  className={styles.link}
+                >
+                  <Phone size={9} />
+                  {location.phone}
+                </a>
+              </p>
+            </div>
           </div>
 
-          <div className={styles.block}>
-            <span className={styles.blockLabel}>
-              <Mail size={9} />
-              Contact
-            </span>
-            <p className={styles.blockValue}>
-              <a href={`mailto:${location.email}`} className={styles.link}>
-                {location.email}
-              </a>
-              <br />
-              <a
-                href={`tel:${location.phone.replace(/\s/g, "")}`}
-                className={styles.link}
-              >
-                <Phone size={9} />
-                {location.phone}
-              </a>
-            </p>
+          <div className={styles.infoCta}>
+            <Button
+              href={`https://maps.google.com/?q=${location.address},${location.city}`}
+              variant="white"
+              size="md"
+              external
+            >
+              Itinéraire
+            </Button>
+            <Button
+              href="https://instagram.com"
+              variant="ghost"
+              size="md"
+              external
+              icon={<Instagram size={11} />}
+            >
+              Instagram
+            </Button>
           </div>
-        </div>
-
-        <div className={styles.infoCta}>
-          <Button
-            href={`https://maps.google.com/?q=${location.address},${location.city}`}
-            variant="white"
-            size="md"
-            external
-          >
-            Itinéraire
-          </Button>
-          <Button
-            href="https://instagram.com"
-            variant="ghost"
-            size="md"
-            external
-            icon={<Instagram size={11} />}
-          >
-            Instagram
-          </Button>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

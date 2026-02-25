@@ -52,6 +52,10 @@
   background-size: 22px 22px;
 }
 
+.infoWrapper {
+  overflow-x: hidden;
+}
+
 // ── Info ──────────────────────────────────────────────────────
 .info {
   background: $ink;
@@ -74,7 +78,7 @@
   font-weight: 300;
   font-size: clamp(28px, 3vw, 40px);
   letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.82);
+  color: $ink-soft;
   margin-top: 6px;
 }
 
@@ -90,7 +94,7 @@
   align-items: center;
   gap: 7px;
   @include mono-label(7px, 0.42em);
-  color: rgba(255, 255, 255, 0.904);
+  color: $ink-soft;
   margin-bottom: 10px;
 }
 
@@ -98,18 +102,18 @@
   font-family: $font-display;
   font-weight: 300;
   font-size: 17px;
-  color: rgba(255, 255, 255, 0.75);
+  color: $ink-soft;
   line-height: 1.75;
 }
 
 .closed {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.629);
+  color: $ink-soft;
   font-size: 14px;
 }
 
 .link {
-  color: rgba(255, 255, 255, 0.75);
+  color: $ink-soft;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -125,6 +129,4 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  // Les boutons ghost sur fond noir héritent la couleur blanche
-  color: $white;
 }

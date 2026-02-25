@@ -22,7 +22,7 @@
 .copy,
 .made {
   @include mono-label(7px, 0.2em);
-  color: rgba(255, 255, 255, 0.732);
+  color: $ink-soft;
 }
 
 .sep {
@@ -37,7 +37,7 @@
 }
 
 .socialLink {
-  color: rgba(255, 255, 255, 0.691);
+  color: $ink-soft;
   display: flex;
   align-items: center;
   transition: color $dur-fast $ease-out;
@@ -48,5 +48,8 @@
 
 .tiktok {
   @include mono-label(7px, 0.08em);
-  color: inherit;
+  color: $ink-soft;
+  &:hover {
+    color: rgba(255, 255, 255, 0.874);
+  }
 }

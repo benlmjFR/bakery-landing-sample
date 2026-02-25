@@ -48,7 +48,7 @@
 
 .emailLink {
   @include mono-label(8px, 0.15em);
-  color: $ink;
+  color: $ink-soft;
   text-decoration: none;
   border-bottom: 1px solid $grey-ultra;
   padding-bottom: 3px;
