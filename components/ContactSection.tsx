@@ -95,8 +95,6 @@ export default function ContactSection() {
     }
   }
 
-  useEffect(() => console.log({ form }), [form]);
-
   // ── Submit — appel direct EmailJS, pas de fetch, pas d'API route ──
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();

@@ -46,6 +46,7 @@
 .black {
   background: $ink;
   border-color: $ink;
+  color: $white;
 
   &:hover:not(.disabled) {
     background: $ink-soft;

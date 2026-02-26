@@ -8,6 +8,7 @@ import Button from "./Button";
 import styles from "./MapSection.module.scss";
 import { LocationData } from "@/types/types";
 import { SECTIONS } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n";
 
 type MapSectionProps = {
   id: string;
@@ -22,6 +23,7 @@ export default function MapSection({
 }: MapSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { t } = useI18n();
 
   return (
     <section
@@ -51,7 +53,11 @@ export default function MapSection({
           transition={{ duration: 0.85, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
         >
           <div className={styles.infoTop}>
-            <SectionLabel index="03" label="Nous trouver" light />
+            <SectionLabel
+              index="03"
+              label={t("boutiques.sectionLabel")}
+              light
+            />
             <h2 className={styles.infoTitle}>{location.name}</h2>
           </div>
 
@@ -59,7 +65,7 @@ export default function MapSection({
             <div className={styles.block}>
               <span className={styles.blockLabel}>
                 <MapPin size={9} />
-                Adresse
+                {t("boutiques.address")}
               </span>
               <p className={styles.blockValue}>
                 {location.address}
@@ -71,7 +77,7 @@ export default function MapSection({
             <div className={styles.block}>
               <span className={styles.blockLabel}>
                 <Clock size={9} />
-                Horaires
+                {t("boutiques.hours")}
               </span>
               <p className={styles.blockValue}>
                 {location.hours}
@@ -83,7 +89,7 @@ export default function MapSection({
             <div className={styles.block}>
               <span className={styles.blockLabel}>
                 <Mail size={9} />
-                Contact
+                {t("boutiques.contact")}
               </span>
               <p className={styles.blockValue}>
                 <a href={`mailto:${location.email}`} className={styles.link}>

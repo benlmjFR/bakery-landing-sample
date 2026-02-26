@@ -70,7 +70,7 @@ const fr = {
     sending:       'Envoi en cours…',
     success:       'Message envoyé ! On vous recontacte bientôt.',
     error:         "Une erreur est survenue. Réessayez ou écrivez-nous directement.",
-    required:      'Champ requis',
+    required:      'Message trop court',
     emailInvalid:  'Email invalide',
   },
 
