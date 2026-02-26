@@ -71,6 +71,7 @@ const en: Translations = {
     send:            'Send',
     sending:         'Sending…',
     success:         'Message sent! We will get back to you soon.',
+    newMessage:      'New message',
     error:           'Something went wrong. Please retry or email us directly.',
     required:        'Message is to short',
     emailInvalid:    'Invalid email',

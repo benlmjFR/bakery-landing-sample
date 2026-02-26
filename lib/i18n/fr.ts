@@ -69,6 +69,7 @@ const fr = {
     send:          'Envoyer',
     sending:       'Envoi en cours…',
     success:       'Message envoyé ! On vous recontacte bientôt.',
+    newMessage:    'Nouveau message',
     error:         "Une erreur est survenue. Réessayez ou écrivez-nous directement.",
     required:      'Message trop court',
     emailInvalid:  'Email invalide',

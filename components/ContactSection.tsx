@@ -187,7 +187,7 @@ export default function ContactSection() {
                 className={styles.resetBtn}
                 onClick={() => setStatus("idle")}
               >
-                Nouveau message
+                {t("contact.newMessage")}
               </button>
             </motion.div>
           )}
