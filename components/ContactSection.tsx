@@ -1,31 +1,53 @@
 "use client";
 
-import { useRef, useState, type FormEvent, type ChangeEvent } from "react";
+// ─────────────────────────────────────────────────────────────
+// ContactSection — EmailJS (zéro serveur, zéro backend)
+//
+// Setup 5 min :
+//   1. https://www.emailjs.com → compte gratuit (200 emails/mois)
+//   2. "Add New Service"  → connecter votre Gmail / Outlook
+//   3. "Email Templates"  → créer un template avec ces variables :
+//
+//        Sujet : [SAIME] {{subject}} — {{from_name}}
+//        Corps :
+//          De      : {{from_name}}
+//          Email   : {{from_email}}
+//          Sujet   : {{subject}}
+//          ──────────────────────────
+//          {{message}}
+//
+//   4. Copier les 3 IDs dans lib/constants.ts → EMAILJS.*
+//   5. npm install @emailjs/browser
+// ─────────────────────────────────────────────────────────────
+
+import {
+  useRef,
+  useState,
+  useEffect,
+  type FormEvent,
+  type ChangeEvent,
+} from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import SectionLabel from "./SectionLabel";
 import Button from "./Button";
 import { useI18n } from "@/lib/i18n";
-import { SECTIONS, CONTACT_EMAIL } from "@/lib/constants";
+import { SECTIONS, CONTACT_EMAIL, EMAILJS } from "@/lib/constants";
 import styles from "./ContactSection.module.scss";
 
-// ── Types ────────────────────────────────────────────────────
 interface FormState {
   name: string;
   email: string;
   subject: string;
   message: string;
 }
-
 interface FormErrors {
   name?: string;
   email?: string;
   subject?: string;
   message?: string;
 }
-
 type Status = "idle" | "sending" | "success" | "error";
-
 const INITIAL_FORM: FormState = {
   name: "",
   email: "",
@@ -33,7 +55,6 @@ const INITIAL_FORM: FormState = {
   message: "",
 };
 
-// ── Composant ────────────────────────────────────────────────
 export default function ContactSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -42,6 +63,13 @@ export default function ContactSection() {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+
+  // ── Pré-charge EmailJS dès le montage (évite le délai au 1er envoi) ──
+  useEffect(() => {
+    import("@emailjs/browser").then(({ default: ejs }) => {
+      ejs.init(EMAILJS.PUBLIC_KEY);
+    });
+  }, []);
 
   // ── Validation ────────────────────────────────────────────
   function validate(f: FormState): FormErrors {
@@ -62,32 +90,48 @@ export default function ContactSection() {
   ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    // Efface l'erreur dès que l'utilisateur commence à corriger
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   }
 
-  // ── Submit ────────────────────────────────────────────────
+  useEffect(() => console.log({ form }), [form]);
+
+  // ── Submit — appel direct EmailJS, pas de fetch, pas d'API route ──
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
     const errs = validate(form);
     if (Object.keys(errs).length > 0) {
+      console.log("❌ validation errors", errs);
       setErrors(errs);
       return;
     }
 
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("Server error");
+      const { default: emailjs } = await import("@emailjs/browser");
+      console.log({ form });
+      const res = await emailjs.send(
+        EMAILJS.SERVICE_ID,
+        EMAILJS.TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          subject: form.subject,
+          message: form.message,
+          to_email: CONTACT_EMAIL,
+          reply_to: form.email,
+        },
+        EMAILJS.PUBLIC_KEY,
+      );
+
+      console.log("✅ EmailJS response", res);
       setStatus("success");
       setForm(INITIAL_FORM);
-    } catch {
+    } catch (err) {
+      console.error("❌ EmailJS error", err);
+      console.error("[EmailJS]", err);
       setStatus("error");
     }
   }
@@ -150,7 +194,7 @@ export default function ContactSection() {
             </motion.div>
           )}
 
-          {/* Erreur serveur */}
+          {/* Erreur */}
           {status === "error" && (
             <motion.div
               key="error"
@@ -187,7 +231,6 @@ export default function ContactSection() {
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              {/* Rangée nom + email */}
               <div className={styles.row}>
                 <Field
                   label={t("contact.name")}
@@ -210,8 +253,6 @@ export default function ContactSection() {
                   disabled={isSending}
                 />
               </div>
-
-              {/* Sujet */}
               <Field
                 label={t("contact.subject")}
                 name="subject"
@@ -222,8 +263,6 @@ export default function ContactSection() {
                 onChange={handleChange}
                 disabled={isSending}
               />
-
-              {/* Message */}
               <Field
                 label={t("contact.message")}
                 name="message"

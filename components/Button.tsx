@@ -78,7 +78,7 @@ export default function Button({
 
   // Bouton classique
   return (
-    <button onClick={onClick} disabled={disabled} className={cls} type="button">
+    <button onClick={onClick} disabled={disabled} className={cls}>
       {inner}
     </button>
   );

@@ -9,8 +9,8 @@ export const SECTIONS = {
 
 export type SectionId = (typeof SECTIONS)[keyof typeof SECTIONS]
 
-// ⚠ Modifiez avec votre email réel
-export const CONTACT_EMAIL = 'myungjae84@gmail.com'
+// TODO Modifiez avec votre email réel
+export const CONTACT_EMAIL = 'saimeparis@gmail.com'
 
 export const NAV_LINK_KEYS = [
   { key: 'nav.about',     href: '#about' },
@@ -125,3 +125,20 @@ export const SITE_META = {
 export const LOCALES        = ['fr', 'en'] as const
 export type  Locale         = (typeof LOCALES)[number]
 export const DEFAULT_LOCALE: Locale = 'fr'
+
+
+// ── EmailJS — configuration (sans serveur) ───────────────────
+// 1. Créez un compte sur https://www.emailjs.com (gratuit, 200/mois)
+// 2. Ajoutez un "Email Service" (Gmail, Outlook…)
+// 3. Créez un "Email Template" avec les variables :
+//      {{from_name}}  {{from_email}}  {{subject}}  {{message}}
+// 4. Remplacez les valeurs ci-dessous par vos vrais IDs
+export const EMAILJS = {
+  SERVICE_ID:  'service_5t1wyqi',   // ← Email Services > Service ID
+  TEMPLATE_ID: 'template_khecez8',  // ← Email Templates > Template ID
+  PUBLIC_KEY:  '-qLF5iKh8_n75oF3z',      // ← Account > Public Key
+} as const
+
+
+
+
